@@ -13,6 +13,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\MauMauSharp.TestUtilities\MauMauSharp.TestUtilities.csproj" />
     <ProjectReference Include="..\MauMauSharp\MauMauSharp.csproj" />
   </ItemGroup>
 
