@@ -1,4 +1,5 @@
-﻿using MauMauSharp.Cards;
+﻿using JetBrains.Annotations;
+using MauMauSharp.Cards;
 using MauMauSharp.Cards.Shufflers;
 using Moq;
 using System;
@@ -7,6 +8,7 @@ using System.Linq;
 
 namespace MauMauSharp.TestUtilities.Mocks.Cards.Shufflers
 {
+    [PublicAPI]
     public static class ShufflerMocks
     {
         public static Mock<IShuffler> NonShuffling() => NonShuffling<Card>();
