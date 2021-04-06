@@ -19,7 +19,7 @@ namespace MauMauSharp.Tests.Boards
                     new(Rank.King, Suit.Clubs),
                     new(Rank.King, Suit.Diamonds)
                 },
-                ShufflerMocks.Reversing<Card>().Object);
+                ShufflerMocks.Reversing().Object);
 
             Assert.That(board.TopCard(), Is.EqualTo(new Card(Rank.King, Suit.Clubs)));
         }

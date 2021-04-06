@@ -1,4 +1,5 @@
-﻿using MauMauSharp.Cards.Shufflers;
+﻿using MauMauSharp.Cards;
+using MauMauSharp.Cards.Shufflers;
 using Moq;
 using System;
 using System.Collections.Generic;
@@ -8,8 +9,12 @@ namespace MauMauSharp.TestUtilities.Mocks.Cards.Shufflers
 {
     public static class ShufflerMocks
     {
+        public static Mock<IShuffler> NonShuffling() => NonShuffling<Card>();
+
         public static Mock<IShuffler> NonShuffling<T>()
             => FromShuffleFunction<T>(elements => elements);
+
+        public static Mock<IShuffler> Reversing() => Reversing<Card>();
 
         public static Mock<IShuffler> Reversing<T>()
             => FromShuffleFunction<T>(elements => elements.Reverse());
