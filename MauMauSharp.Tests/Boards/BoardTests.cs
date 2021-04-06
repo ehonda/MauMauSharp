@@ -1,11 +1,7 @@
 ﻿using MauMauSharp.Boards;
-using MauMauSharp.Cards;
-using MauMauSharp.Cards.Enums;
 using MauMauSharp.TestUtilities.Mocks.Cards.Shufflers;
-using MauMauSharp.TestUtilities.Parsers.Cards;
 using MauMauSharp.TestUtilities.Parsers.Fluent;
 using NUnit.Framework;
-using Sprache;
 
 namespace MauMauSharp.Tests.Boards
 {
@@ -21,7 +17,7 @@ namespace MauMauSharp.Tests.Boards
                     "Kd"),
                 ShufflerMocks.Reversing().Object);
 
-            Assert.That(board.TopPlayedCard(), Is.EqualTo(Grammar.Card().Parse("Kc")));
+            Assert.That(board.TopPlayedCard(), Is.EqualTo(Card.From("Kc")));
         }
     }
 }
