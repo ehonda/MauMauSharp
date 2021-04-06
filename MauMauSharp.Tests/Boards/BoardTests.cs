@@ -21,7 +21,7 @@ namespace MauMauSharp.Tests.Boards
                 },
                 ShufflerMocks.Reversing().Object);
 
-            Assert.That(board.TopCard(), Is.EqualTo(new Card(Rank.King, Suit.Clubs)));
+            Assert.That(board.TopPlayedCard(), Is.EqualTo(new Card(Rank.King, Suit.Clubs)));
         }
     }
 }

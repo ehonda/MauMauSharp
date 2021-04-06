@@ -1,6 +1,6 @@
-﻿using System.Collections.Generic;
-using MauMauSharp.Cards;
+﻿using MauMauSharp.Cards;
 using MauMauSharp.Cards.Shufflers;
+using System.Collections.Generic;
 
 namespace MauMauSharp.Boards
 {
@@ -8,20 +8,18 @@ namespace MauMauSharp.Boards
     {
         private readonly IShuffler _shuffler;
 
-        // TODO: Better names!
-        private readonly Stack<Card> _discard;
-        private readonly Stack<Card> _deck;
+        private readonly Stack<Card> _played;
+        private readonly Stack<Card> _supply;
 
         public Board(IEnumerable<Card> cards, IShuffler shuffler)
         {
             _shuffler = shuffler;
 
-            _deck = new(_shuffler.Shuffle(cards));
-            _discard = new();
-            _discard.Push(_deck.Pop());
+            _supply = new(_shuffler.Shuffle(cards));
+            _played = new();
+            _played.Push(_supply.Pop());
         }
 
-        // TODO: Better name?
-        public Card TopCard() => _discard.Peek();
+        public Card TopPlayedCard() => _played.Peek();
     }
 }
