@@ -19,5 +19,19 @@ namespace MauMauSharp.Tests.Boards
 
             Assert.That(board.TopPlayedCard(), Is.EqualTo(Card.From("Kd")));
         }
+
+        [Test]
+        public void A_Card_Can_Be_Played_To_And_Will_Then_Be_The_TopPlayedCard()
+        {
+            var board = new Board(
+                Deck.TopDown(
+                    "Kc",
+                    "Kd"),
+                ShufflerMocks.NonShuffling().Object);
+
+            board.PlayCard(Card.From("Qh"));
+
+            Assert.That(board.TopPlayedCard(), Is.EqualTo(Card.From("Qh")));
+        }
     }
 }

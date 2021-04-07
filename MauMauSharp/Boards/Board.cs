@@ -21,5 +21,7 @@ namespace MauMauSharp.Boards
         }
 
         public Card TopPlayedCard() => _played.Peek();
+
+        public void PlayCard(Card card) => _played.Push(card);
     }
 }
