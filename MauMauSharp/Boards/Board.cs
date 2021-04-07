@@ -8,8 +8,8 @@ namespace MauMauSharp.Boards
     {
         private readonly IShuffler _shuffler;
 
-        private readonly Stack<Card> _played;
-        private readonly Stack<Card> _supply;
+        private Stack<Card> _played;
+        private Stack<Card> _supply;
 
         public Board(IEnumerable<Card> cards, IShuffler shuffler)
         {
@@ -23,5 +23,21 @@ namespace MauMauSharp.Boards
         public Card TopPlayedCard() => _played.Peek();
 
         public void PlayCard(Card card) => _played.Push(card);
+
+        public Card DrawCardFromSupply()
+        {
+            if (_supply.Count == 0)
+                ReplenishSupply();
+
+            return _supply.Pop();
+        }
+
+        private void ReplenishSupply()
+        {
+            var topPlayed = _played.Pop();
+            _supply = new(_shuffler.Shuffle(_played));
+            _played = new();
+            _played.Push(topPlayed);
+        }
     }
 }
