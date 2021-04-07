@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace MauMauSharp.Boards
 {
-    public class Board
+    public class Board : IBoard
     {
         private readonly IShuffler _shuffler;
 

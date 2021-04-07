@@ -7,10 +7,10 @@ namespace MauMauSharp.Games
 {
     public class Game
     {
-        private readonly Board _board;
+        private readonly IBoard _board;
         private readonly List<IPlayer> _players;
 
-        public Game(Board board, IEnumerable<IPlayer> players)
+        public Game(IBoard board, IEnumerable<IPlayer> players)
         {
             _board = board;
             _players = players.ToList();
