@@ -1,5 +1,7 @@
-﻿using MauMauSharp.Games;
+﻿using MauMauSharp.Boards;
+using MauMauSharp.Games;
 using MauMauSharp.Players;
+using MauMauSharp.TestUtilities.Mocks.Boards.Fluent;
 using MauMauSharp.TestUtilities.Mocks.Cards.Shufflers;
 using MauMauSharp.TestUtilities.Parsers.Fluent;
 using Moq;
@@ -19,12 +21,15 @@ namespace MauMauSharp.Tests.Games
                 .Returns(Card.From("Qc"));
 
             var game = new Game(
-                // TODO: Provide BoardMock in a desired state in TestUtilities
-                new(
-                    Deck.TopDown(
-                        "Kc",
-                        "Kd"),
-                    ShufflerMocks.NonShuffling().Object),
+                new Mock<IBoard>()
+                    .WithTopPlayedCard(Card.From("Kc"))
+                    .Object,
+                //// TODO: Provide BoardMock in a desired state in TestUtilities
+                //new(
+                //    Deck.TopDown(
+                //        "Kc",
+                //        "Kd"),
+                //    ShufflerMocks.NonShuffling().Object),
                 new[] { player.Object });
 
             game.NextTurn();
