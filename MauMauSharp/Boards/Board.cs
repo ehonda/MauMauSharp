@@ -15,6 +15,7 @@ namespace MauMauSharp.Boards
         {
             _shuffler = shuffler;
 
+            // TODO: Refactor so we can use ReplenishSupply here
             _supply = new(_shuffler.Shuffle(cards));
             _played = new();
             _played.Push(_supply.Pop());
