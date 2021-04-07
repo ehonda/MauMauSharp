@@ -2,7 +2,6 @@
 using MauMauSharp.Games;
 using MauMauSharp.Players;
 using MauMauSharp.TestUtilities.Mocks.Boards.Fluent;
-using MauMauSharp.TestUtilities.Mocks.Cards.Shufflers;
 using MauMauSharp.TestUtilities.Parsers.Fluent;
 using Moq;
 using NUnit.Framework;
@@ -24,12 +23,6 @@ namespace MauMauSharp.Tests.Games
                 new Mock<IBoard>()
                     .WithTopPlayedCard(Card.From("Kc"))
                     .Object,
-                //// TODO: Provide BoardMock in a desired state in TestUtilities
-                //new(
-                //    Deck.TopDown(
-                //        "Kc",
-                //        "Kd"),
-                //    ShufflerMocks.NonShuffling().Object),
                 new[] { player.Object });
 
             game.NextTurn();
