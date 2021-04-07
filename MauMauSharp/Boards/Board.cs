@@ -9,16 +9,14 @@ namespace MauMauSharp.Boards
         private readonly IShuffler _shuffler;
 
         private Stack<Card> _played;
-        private Stack<Card> _supply;
+        private Stack<Card> _supply = new();
 
         public Board(IEnumerable<Card> cards, IShuffler shuffler)
         {
             _shuffler = shuffler;
 
-            // TODO: Refactor so we can use ReplenishSupply here
-            _supply = new(_shuffler.Shuffle(cards));
-            _played = new();
-            _played.Push(_supply.Pop());
+            _played = new(shuffler.Shuffle(cards));
+            ReplenishSupply();
         }
 
         public Card TopPlayedCard() => _played.Peek();
@@ -37,8 +35,7 @@ namespace MauMauSharp.Boards
         {
             var topPlayed = _played.Pop();
             _supply = new(_shuffler.Shuffle(_played));
-            _played = new();
-            _played.Push(topPlayed);
+            _played = new(new[] { topPlayed });
         }
     }
 }

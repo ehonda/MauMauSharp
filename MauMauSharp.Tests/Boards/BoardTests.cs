@@ -8,6 +8,16 @@ namespace MauMauSharp.Tests.Boards
     [TestFixture]
     public class BoardTests
     {
+        // TODO: Probabilistic tests, see explanation:
+        //          We should replace these tests that care about shuffling by
+        //          probabilistic tests, because we want to view Board as a black box.
+        //          Right now, we require the shuffle method to be called a specific
+        //          number of times, but we shouldn't care about that from the outside.
+        //          To be independent of the implementation, all we want to test
+        //          is that from the outside, we can observe the cards have been shuffled
+        //          (at least once) when we expect them to be - and for that,
+        //          we need probabilistic tests.
+
         [Test]
         public void Cards_Are_Shuffled_And_The_Top_Card_Is_Revealed_On_A_Fresh_Board()
         {
@@ -44,7 +54,12 @@ namespace MauMauSharp.Tests.Boards
                     "Qh"),
                 ShufflerMocks.NonShuffling().Object);
 
-            Assert.That(board.DrawCardFromSupply(), Is.EqualTo(Card.From("Kd")));
+            Assert.That(
+                board.DrawCardFromSupply(),
+                Is
+                    .EqualTo(Card.From("Kc"))
+                    .Or.EqualTo(Card.From("Kd"))
+                    .Or.EqualTo(Card.From("Qh")));
         }
 
         [Test]
