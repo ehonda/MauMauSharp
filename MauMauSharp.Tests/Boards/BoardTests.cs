@@ -9,7 +9,7 @@ namespace MauMauSharp.Tests.Boards
     public class BoardTests
     {
         [Test]
-        public void Cards_Are_Shuffled_And_The_Top_Card_Revealed_On_A_Fresh_Board()
+        public void Cards_Are_Shuffled_And_The_Top_Card_Is_Revealed_On_A_Fresh_Board()
         {
             var board = new Board(
                 Deck.TopDown(
