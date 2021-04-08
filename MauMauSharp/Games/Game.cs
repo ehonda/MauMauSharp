@@ -23,7 +23,8 @@ namespace MauMauSharp.Games
             // TODO: Use player whose turn it is
             var card = _players.First().PassOrPlayCard(
                 new(_board.GetState()));
-            _board.PlayCard(card);
+            if (card is not null)
+                _board.PlayCard(card);
         }
     }
 }
