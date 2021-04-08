@@ -9,5 +9,7 @@ namespace MauMauSharp.Boards
         public void PlayCard(Card card);
 
         public Card DrawCardFromSupply();
+
+        public BoardState GetState();
     }
 }

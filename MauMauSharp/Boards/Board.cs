@@ -31,6 +31,9 @@ namespace MauMauSharp.Boards
             return _supply.Pop();
         }
 
+        /// <inheritdoc />
+        public BoardState GetState() => new(TopPlayedCard(), _supply.Count);
+
         private void ReplenishSupply()
         {
             var topPlayed = _played.Pop();
