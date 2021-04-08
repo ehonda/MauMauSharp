@@ -29,6 +29,10 @@ namespace MauMauSharp.TestUtilities.Mocks.Boards
                 .Setup(m => m.DrawCardFromSupply())
                 .Returns(() => supplyStack.Pop());
 
+            mock
+                .Setup(m => m.GetState())
+                .Returns(() => new(mock.Object.TopPlayedCard(), supplyStack.Count));
+
             return mock;
         }
 
