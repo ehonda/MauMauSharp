@@ -5,6 +5,7 @@ namespace MauMauSharp.Players
 {
     public interface IPlayer
     {
-        public Card RequestCardToPlay(GameState gameState);
+        // TODO: Use Maybe<Card> here
+        public Card? PassOrPlayCard(GameState gameState);
     }
 }

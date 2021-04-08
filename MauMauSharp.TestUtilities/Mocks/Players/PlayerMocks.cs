@@ -13,7 +13,7 @@ namespace MauMauSharp.TestUtilities.Mocks.Players
         {
             var mock = new Mock<IPlayer>();
             mock
-                .Setup(player => player.RequestCardToPlay(It.IsAny<GameState>()))
+                .Setup(player => player.PassOrPlayCard(It.IsAny<GameState>()))
                 .Returns(card);
             return mock;
         }
