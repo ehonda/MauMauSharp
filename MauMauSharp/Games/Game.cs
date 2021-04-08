@@ -22,8 +22,7 @@ namespace MauMauSharp.Games
             // TODO: Need to check if the move is legal
             // TODO: Use player whose turn it is
             var card = _players.First().PassOrPlayCard(
-                // TODO: Use actual number of cards in supply
-                new(_board.TopPlayedCard(), 0));
+                new(_board.GetState()));
             _board.PlayCard(card);
         }
     }
