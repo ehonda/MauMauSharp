@@ -1,7 +1,6 @@
-﻿using MauMauSharp.Boards;
-using MauMauSharp.Games;
+﻿using MauMauSharp.Games;
 using MauMauSharp.Players;
-using MauMauSharp.TestUtilities.Mocks.Boards.Fluent;
+using MauMauSharp.TestUtilities.Mocks.Boards;
 using MauMauSharp.TestUtilities.Parsers.Fluent;
 using Moq;
 using NUnit.Framework;
@@ -20,7 +19,7 @@ namespace MauMauSharp.Tests.Games
                 .Returns(Card.From("Qc"));
 
             var game = new Game(
-                new Mock<IBoard>()
+                BoardMocks
                     .WithTopPlayedCard(Card.From("Kc"))
                     .Object,
                 new[] { player.Object });
