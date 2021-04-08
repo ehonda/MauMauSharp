@@ -78,5 +78,19 @@ namespace MauMauSharp.Tests.Boards
             Assert.That(board.TopPlayedCard(), Is.EqualTo(Card.From("Ts")));
             Assert.That(drawnCard, Is.EqualTo(Card.From("Qh")));
         }
+
+        // TODO: This test could be more exhaustive:
+        //          - Check that BoardState first component is TopPlayedCard()
+        //          - Check that expected supply number matches for various supply pile sizes
+        [Test]
+        public void The_Correct_BoardState_Is_Returned()
+        {
+            var board = new Board(
+                Deck.TopDown(
+                    "Kc"),
+                ShufflerMocks.Reversing().Object);
+
+            Assert.That(board.GetState(), Is.EqualTo(new BoardState(Card.From("Kc"), 0)));
+        }
     }
 }
