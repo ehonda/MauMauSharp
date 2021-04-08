@@ -20,8 +20,16 @@ namespace MauMauSharp.Players
 
         /// <inheritdoc />
         public Card? PassOrPlayCard(GameState gameState)
-            => ChooseCardToPlay(gameState);
+        {
+            var card = ChooseCardToPlayOrPass(gameState);
+            if (card is null)
+                return null;
 
-        protected abstract Card ChooseCardToPlay(GameState gameState);
+            // TODO: Catch and rethrow? For better error message
+            _hand.Remove(card);
+            return card;
+        }
+
+        protected abstract Card? ChooseCardToPlayOrPass(GameState gameState);
     }
 }
