@@ -34,5 +34,22 @@ namespace MauMauSharp.Tests.Players
                 Throws.TypeOf<InvalidOperationException>()
                     .And.Message.Contains("hand").IgnoreCase);
         }
+
+
+        [Test]
+        public void If_A_Player_Chooses_To_Play_A_Card_From_Hand_It_Is_Returned_And_Removed_From_Hand()
+        {
+            var player = new Player(
+                PlayerIOMocks.ChoosingCardToPlay("Qc").Object,
+                Hand.From("Qc Kc"));
+
+            var card = player.PassOrPlayCard(GameStateData.WithArbitraryValues());
+
+            Assert.That(card, Is.EqualTo(Card.From("Qc")));
+            
+            Assert.That(player.Hand, Has.Length.EqualTo(1));
+            Assert.That(player.Hand, Does.Contain(Card.From("Kc")));
+            Assert.That(player.Hand, Does.Not.Contain(Card.From("Qc")));
+        }
     }
 }
