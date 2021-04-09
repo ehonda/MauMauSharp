@@ -6,6 +6,7 @@ namespace MauMauSharp.Players
 {
     public interface IPlayer
     {
+        // TODO: Do we really need this property? Evaluate!
         public ImmutableArray<Card> Hand { get; }
 
         // TODO: Use Maybe<Card> here
