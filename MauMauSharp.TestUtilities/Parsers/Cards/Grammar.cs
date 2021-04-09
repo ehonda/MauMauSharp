@@ -1,4 +1,5 @@
-﻿using MauMauSharp.Cards;
+﻿using System.Collections.Generic;
+using MauMauSharp.Cards;
 using MauMauSharp.Cards.Enums;
 using Sprache;
 using System.Linq;
@@ -29,5 +30,8 @@ namespace MauMauSharp.TestUtilities.Parsers.Cards
             from rank in Rank()
             from suit in Suit()
             select new Card(rank, suit);
+
+        public static Parser<IEnumerable<Card>> Hand()
+            => Card().DelimitedBy(Parse.WhiteSpace);
     }
 }
