@@ -28,7 +28,6 @@ namespace MauMauSharp.Players
             if (card is null)
                 return null;
 
-            // TODO: Maybe asking again is better?
             if (_hand.Contains(card) is false)
                 throw new InvalidOperationException("Can't pick card to play that is not in hand.");
 
