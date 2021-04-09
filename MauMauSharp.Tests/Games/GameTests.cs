@@ -35,20 +35,21 @@ namespace MauMauSharp.Tests.Games
         public void The_Starting_Player_Is_Passed_The_Current_BoardState_For_Their_Decision()
         {
             var player = PlayerMocks.PlayingCard("Qc");
+            var board = BoardMocks
+                .WithTopPlayedCard(Card.From("Kc"));
 
             var game = new Game(
-                BoardMocks
-                    .WithTopPlayedCard(Card.From("Kc"))
-                    .Object,
+                board.Object,
                 new[]
                 {
                     player.Object
                 });
 
+            var stateBeforeTurn = new GameState(board.Object.GetState());
             game.NextTurn();
 
             player.Verify(
-                p => p.PassOrPlayCard(new(new(Card.From("Kc"), 0))),
+                p => p.PassOrPlayCard(stateBeforeTurn),
                 Times.Once);
         }
     }
