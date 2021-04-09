@@ -13,7 +13,7 @@ namespace MauMauSharp.Tests.Games
         [Test]
         public void The_Starting_Player_Can_Pass_Or_Play_A_Card_On_The_First_Turn()
         {
-            var player = PlayerMocks.PlayingCard(Card.From("Qc"));
+            var player = PlayerMocks.PlayingCard("Qc");
 
             var game = new Game(
                 BoardMocks
@@ -34,7 +34,7 @@ namespace MauMauSharp.Tests.Games
         [Test]
         public void The_Starting_Player_Is_Passed_The_Current_BoardState_For_Their_Decision()
         {
-            var player = PlayerMocks.PlayingCard(Card.From("Qc"));
+            var player = PlayerMocks.PlayingCard("Qc");
 
             var game = new Game(
                 BoardMocks

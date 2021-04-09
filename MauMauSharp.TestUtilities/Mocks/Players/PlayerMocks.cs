@@ -9,7 +9,6 @@ namespace MauMauSharp.TestUtilities.Mocks.Players
     [PublicAPI]
     public static class PlayerMocks
     {
-        // TODO: Add and use convenience overload taking string
         public static Mock<IPlayer> PlayingCard(Card card)
         {
             var mock = new Mock<IPlayer>();
@@ -18,5 +17,8 @@ namespace MauMauSharp.TestUtilities.Mocks.Players
                 .Returns(card);
             return mock;
         }
+
+        public static Mock<IPlayer> PlayingCard(string card)
+            => PlayingCard(Parsers.Fluent.Card.From(card));
     }
 }
