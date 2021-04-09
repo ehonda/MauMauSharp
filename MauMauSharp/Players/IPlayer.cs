@@ -11,5 +11,7 @@ namespace MauMauSharp.Players
 
         // TODO: Use Maybe<Card> here
         public Card? PassOrPlayCard(GameState gameState);
+
+        public void TakeCard(Card card);
     }
 }

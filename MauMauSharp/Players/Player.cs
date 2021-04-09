@@ -34,5 +34,11 @@ namespace MauMauSharp.Players
             _hand.Remove(card);
             return card;
         }
+
+        /// <inheritdoc />
+        public void TakeCard(Card card)
+        {
+            _hand.Add(card);
+        }
     }
 }

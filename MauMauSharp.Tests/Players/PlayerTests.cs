@@ -35,7 +35,6 @@ namespace MauMauSharp.Tests.Players
                     .And.Message.Contains("hand").IgnoreCase);
         }
 
-
         [Test]
         public void If_A_Player_Chooses_To_Play_A_Card_From_Hand_It_Is_Returned_And_Removed_From_Hand()
         {
@@ -50,6 +49,19 @@ namespace MauMauSharp.Tests.Players
             Assert.That(player.Hand, Has.Length.EqualTo(1));
             Assert.That(player.Hand, Does.Contain(Card.From("Kc")));
             Assert.That(player.Hand, Does.Not.Contain(Card.From("Qc")));
+        }
+
+        [Test]
+        public void Taking_A_Card_Adds_That_Card_To_The_Players_Hand()
+        {
+            var player = new Player(
+                PlayerIOMocks.Passing().Object,
+                Hand.Empty());
+
+            player.TakeCard(Card.From("Qc"));
+
+            Assert.That(player.Hand, Has.Length.EqualTo(1));
+            Assert.That(player.Hand, Does.Contain(Card.From("Qc")));
         }
     }
 }
