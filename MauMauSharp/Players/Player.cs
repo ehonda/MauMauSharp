@@ -1,4 +1,5 @@
-﻿using MauMauSharp.Cards;
+﻿using System;
+using MauMauSharp.Cards;
 using MauMauSharp.Games;
 using System.Collections.Generic;
 using System.Collections.Immutable;
@@ -27,7 +28,10 @@ namespace MauMauSharp.Players
             if (card is null)
                 return null;
 
-            // TODO: Catch and rethrow? For better error message
+            // TODO: Maybe asking again is better?
+            if (_hand.Contains(card) is false)
+                throw new InvalidOperationException("Can't pick card to play that is not in hand.");
+
             _hand.Remove(card);
             return card;
         }
