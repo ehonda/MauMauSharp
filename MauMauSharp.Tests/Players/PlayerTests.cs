@@ -5,7 +5,6 @@ using MauMauSharp.TestUtilities.Mocks.Players;
 using NUnit.Framework;
 using System;
 using System.Linq;
-using FCard = MauMauSharp.TestUtilities.Parsers.Fluent.Card;
 
 namespace MauMauSharp.Tests.Players
 {
@@ -27,7 +26,7 @@ namespace MauMauSharp.Tests.Players
         public void If_A_Player_Chooses_To_Play_A_Card_That_Is_Not_In_Hand_An_Exception_Is_Thrown()
         {
             var player = new Player(
-                PlayerIOMocks.ChoosingCardToPlay(FCard.From("Qc")).Object,
+                PlayerIOMocks.ChoosingCardToPlay("Qc").Object,
                 Enumerable.Empty<Card>());
 
             Assert.That(() => player.PassOrPlayCard(new(new(new(Rank.King, Suit.Clubs), 0))),

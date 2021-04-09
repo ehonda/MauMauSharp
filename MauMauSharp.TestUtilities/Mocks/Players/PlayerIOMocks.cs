@@ -10,6 +10,9 @@ namespace MauMauSharp.TestUtilities.Mocks.Players
     [PublicAPI]
     public static class PlayerIOMocks
     {
+        public static Mock<IPlayerIO> ChoosingCardToPlay(string card)
+            => ChoosingCardToPlay(Parsers.Fluent.Card.From(card));
+
         public static Mock<IPlayerIO> ChoosingCardToPlay(Card card)
         {
             var playerIO = new Mock<IPlayerIO>();
@@ -23,6 +26,6 @@ namespace MauMauSharp.TestUtilities.Mocks.Players
         }
 
         public static Mock<IPlayerIO> Passing()
-            => ChoosingCardToPlay(null!);
+            => ChoosingCardToPlay((Card)null!);
     }
 }
