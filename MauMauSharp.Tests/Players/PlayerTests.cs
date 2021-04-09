@@ -1,6 +1,6 @@
 ﻿using MauMauSharp.Cards;
-using MauMauSharp.Cards.Enums;
 using MauMauSharp.Players;
+using MauMauSharp.TestUtilities.Data.Games;
 using MauMauSharp.TestUtilities.Mocks.Players;
 using NUnit.Framework;
 using System;
@@ -18,8 +18,9 @@ namespace MauMauSharp.Tests.Players
                 PlayerIOMocks.Passing().Object,
                 Enumerable.Empty<Card>());
 
-            // TODO: Arbitrary GameState
-            Assert.That(player.PassOrPlayCard(new(new(new(Rank.King, Suit.Clubs), 0))), Is.Null);
+            Assert.That(
+                player.PassOrPlayCard(GameStateData.WithArbitraryValues()),
+                Is.Null);
         }
 
         [Test]
@@ -29,7 +30,8 @@ namespace MauMauSharp.Tests.Players
                 PlayerIOMocks.ChoosingCardToPlay("Qc").Object,
                 Enumerable.Empty<Card>());
 
-            Assert.That(() => player.PassOrPlayCard(new(new(new(Rank.King, Suit.Clubs), 0))),
+            Assert.That(
+                () => player.PassOrPlayCard(GameStateData.WithArbitraryValues()),
                 Throws.TypeOf<InvalidOperationException>()
                     .And.Message.Contains("hand").IgnoreCase);
         }
