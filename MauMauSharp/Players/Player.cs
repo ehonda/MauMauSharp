@@ -6,12 +6,14 @@ using System.Linq;
 
 namespace MauMauSharp.Players
 {
-    public abstract class Player : IPlayer
+    public class Player : IPlayer
     {
+        private readonly IPlayerIO _playerIo;
         private readonly List<Card> _hand;
 
-        protected Player(IEnumerable<Card> hand)
+        public Player(IPlayerIO playerIo, IEnumerable<Card> hand)
         {
+            _playerIo = playerIo;
             _hand = hand.ToList();
         }
 
@@ -21,7 +23,7 @@ namespace MauMauSharp.Players
         /// <inheritdoc />
         public Card? PassOrPlayCard(GameState gameState)
         {
-            var card = ChooseCardToPlayOrPass(gameState);
+            var card = _playerIo.ChooseCardToPlayOrPass(gameState, Hand);
             if (card is null)
                 return null;
 
@@ -29,7 +31,5 @@ namespace MauMauSharp.Players
             _hand.Remove(card);
             return card;
         }
-
-        protected abstract Card? ChooseCardToPlayOrPass(GameState gameState);
     }
 }
