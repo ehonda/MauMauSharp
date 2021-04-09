@@ -14,5 +14,8 @@ namespace MauMauSharp.TestUtilities.Parsers.Fluent
 
         public static IEnumerable<MauMauSharp.Cards.Card> TopDown(params string[] cards)
             => BottomUp(cards).Reverse();
+
+        public static IEnumerable<MauMauSharp.Cards.Card> Empty()
+            => Enumerable.Empty<MauMauSharp.Cards.Card>();
     }
 }

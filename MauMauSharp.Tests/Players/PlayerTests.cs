@@ -1,10 +1,11 @@
-﻿using MauMauSharp.Cards;
-using MauMauSharp.Players;
+﻿using MauMauSharp.Players;
 using MauMauSharp.TestUtilities.Data.Games;
 using MauMauSharp.TestUtilities.Mocks.Players;
 using NUnit.Framework;
 using System;
 using System.Linq;
+using MauMauSharp.TestUtilities.Parsers.Fluent;
+using Card = MauMauSharp.Cards.Card;
 
 namespace MauMauSharp.Tests.Players
 {
@@ -16,7 +17,7 @@ namespace MauMauSharp.Tests.Players
         {
             var player = new Player(
                 PlayerIOMocks.Passing().Object,
-                Enumerable.Empty<Card>());
+                Deck.Empty());
 
             Assert.That(
                 player.PassOrPlayCard(GameStateData.WithArbitraryValues()),
@@ -28,7 +29,7 @@ namespace MauMauSharp.Tests.Players
         {
             var player = new Player(
                 PlayerIOMocks.ChoosingCardToPlay("Qc").Object,
-                Enumerable.Empty<Card>());
+                Deck.Empty());
 
             Assert.That(
                 () => player.PassOrPlayCard(GameStateData.WithArbitraryValues()),
