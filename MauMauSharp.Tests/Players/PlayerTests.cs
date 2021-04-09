@@ -1,11 +1,9 @@
 ﻿using MauMauSharp.Players;
 using MauMauSharp.TestUtilities.Data.Games;
 using MauMauSharp.TestUtilities.Mocks.Players;
+using MauMauSharp.TestUtilities.Parsers.Fluent;
 using NUnit.Framework;
 using System;
-using System.Linq;
-using MauMauSharp.TestUtilities.Parsers.Fluent;
-using Card = MauMauSharp.Cards.Card;
 
 namespace MauMauSharp.Tests.Players
 {
