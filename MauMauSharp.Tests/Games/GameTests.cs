@@ -17,7 +17,7 @@ namespace MauMauSharp.Tests.Games
 
             var game = new Game(
                 BoardMocks
-                    .WithTopPlayedCard(Card.From("Kc"))
+                    .WithTopPlayedCard("Kc")
                     .Object,
                 new[]
                 {
@@ -36,7 +36,7 @@ namespace MauMauSharp.Tests.Games
         {
             var player = PlayerMocks.PlayingCard("Qc");
             var board = BoardMocks
-                .WithTopPlayedCard(Card.From("Kc"));
+                .WithTopPlayedCard("Kc");
 
             var game = new Game(
                 board.Object,

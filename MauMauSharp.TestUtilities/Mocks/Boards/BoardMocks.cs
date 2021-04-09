@@ -42,6 +42,9 @@ namespace MauMauSharp.TestUtilities.Mocks.Boards
         public static Mock<IBoard> WithTopPlayedCard(Card card)
             => WithPlayed(new[] { card });
 
+        public static Mock<IBoard> WithTopPlayedCard(string card)
+            => WithTopPlayedCard(Parsers.Fluent.Card.From(card));
+
         // TODO: WithSupply? Do we want to allow empty top?
     }
 }
