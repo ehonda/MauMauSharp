@@ -15,7 +15,7 @@ namespace MauMauSharp.Tests.Players
         {
             var player = new Player(
                 PlayerIOMocks.Passing().Object,
-                Deck.Empty());
+                Hand.Empty());
 
             Assert.That(
                 player.PassOrPlayCard(GameStateData.WithArbitraryValues()),
@@ -27,7 +27,7 @@ namespace MauMauSharp.Tests.Players
         {
             var player = new Player(
                 PlayerIOMocks.ChoosingCardToPlay("Qc").Object,
-                Deck.Empty());
+                Hand.Empty());
 
             Assert.That(
                 () => player.PassOrPlayCard(GameStateData.WithArbitraryValues()),
