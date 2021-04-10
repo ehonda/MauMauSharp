@@ -45,10 +45,7 @@ namespace MauMauSharp.Tests.Players
             var card = player.PassOrPlayCard(GameStateData.WithArbitraryValues());
 
             Assert.That(card, Is.EqualTo(Card.From("Qc")));
-            
-            Assert.That(player.Hand, Has.Length.EqualTo(1));
-            Assert.That(player.Hand, Does.Contain(Card.From("Kc")));
-            Assert.That(player.Hand, Does.Not.Contain(Card.From("Qc")));
+            Assert.That(player.Hand, Is.EquivalentTo(Hand.From("Kc")));
         }
 
         [Test]
@@ -56,12 +53,11 @@ namespace MauMauSharp.Tests.Players
         {
             var player = new Player(
                 PlayerIOMocks.Passing().Object,
-                Hand.Empty());
+                Hand.From("Ad"));
 
             player.TakeCard(Card.From("Qc"));
 
-            Assert.That(player.Hand, Has.Length.EqualTo(1));
-            Assert.That(player.Hand, Does.Contain(Card.From("Qc")));
+            Assert.That(player.Hand, Is.EquivalentTo(Hand.From("Ad Qc")));
         }
     }
 }
