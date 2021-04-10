@@ -20,5 +20,8 @@ namespace MauMauSharp.TestUtilities.Mocks.Players
 
         public static Mock<IPlayer> PlayingCard(string card)
             => PlayingCard(Parsers.Fluent.Card.From(card));
+
+        public static Mock<IPlayer> Passing()
+            => PlayingCard((Card)null!);
     }
 }
