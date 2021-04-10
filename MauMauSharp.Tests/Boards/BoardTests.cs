@@ -90,7 +90,7 @@ namespace MauMauSharp.Tests.Boards
                     "Kc"),
                 ShufflerMocks.Reversing().Object);
 
-            Assert.That(board.GetState(), Is.EqualTo(new BoardState(Card.From("Kc"), 0)));
+            Assert.That(board.BoardState, Is.EqualTo(new BoardState(Card.From("Kc"), 0)));
         }
     }
 }

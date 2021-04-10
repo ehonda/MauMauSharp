@@ -30,7 +30,7 @@ namespace MauMauSharp.TestUtilities.Mocks.Boards
                 .Returns(() => supplyStack.Pop());
 
             mock
-                .Setup(m => m.GetState())
+                .Setup(m => m.BoardState)
                 .Returns(() => new(mock.Object.TopPlayedCard(), supplyStack.Count));
 
             return mock;

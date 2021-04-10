@@ -4,13 +4,12 @@ namespace MauMauSharp.Boards
 {
     public interface IBoard
     {
+        public BoardState BoardState { get; }
+
         public Card TopPlayedCard();
 
         public void PlayCard(Card card);
 
         public Card DrawCardFromSupply();
-
-        // TODO: Make this a get-only property
-        public BoardState GetState();
     }
 }

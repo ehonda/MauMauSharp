@@ -19,6 +19,9 @@ namespace MauMauSharp.Boards
             ReplenishSupply();
         }
 
+        /// <inheritdoc />
+        public BoardState BoardState => new(TopPlayedCard(), _supply.Count);
+
         public Card TopPlayedCard() => _played.Peek();
 
         public void PlayCard(Card card) => _played.Push(card);
@@ -30,9 +33,6 @@ namespace MauMauSharp.Boards
 
             return _supply.Pop();
         }
-
-        /// <inheritdoc />
-        public BoardState GetState() => new(TopPlayedCard(), _supply.Count);
 
         private void ReplenishSupply()
         {

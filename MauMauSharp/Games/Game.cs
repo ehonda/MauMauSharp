@@ -11,7 +11,7 @@ namespace MauMauSharp.Games
         private readonly List<IPlayer> _players;
 
         // TODO: Need to decide how we handle hidden info for the different players here
-        public GameState GameState => new(_board.GetState());
+        public GameState GameState => new(_board.BoardState);
 
         public Game(IBoard board, IEnumerable<IPlayer> players)
         {
@@ -25,7 +25,7 @@ namespace MauMauSharp.Games
             // TODO: Need to check if the move is legal
             // TODO: Use player whose turn it is
             var card = _players.First().PassOrPlayCard(
-                new(_board.GetState()));
+                new(_board.BoardState));
 
             if (card is not null)
                 _board.PlayCard(card);
