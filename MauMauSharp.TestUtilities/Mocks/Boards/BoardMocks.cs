@@ -36,6 +36,14 @@ namespace MauMauSharp.TestUtilities.Mocks.Boards
             return mock;
         }
 
+        public static Mock<IBoard> WithTopPlayedCardAndSupply(
+            Card played, IEnumerable<Card> supply)
+            => WithPlayedAndSupply(new[] { played }, supply);
+
+        public static Mock<IBoard> WithTopPlayedCardAndSupply(
+            string played, IEnumerable<Card> supply)
+            => WithTopPlayedCardAndSupply(Parsers.Fluent.Card.From(played), supply);
+
         public static Mock<IBoard> WithPlayed(IEnumerable<Card> played)
             => WithPlayedAndSupply(played, Enumerable.Empty<Card>());
 
