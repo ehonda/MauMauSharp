@@ -52,5 +52,30 @@ namespace MauMauSharp.Tests.Games
                 p => p.PassOrPlayCard(stateBeforeTurn),
                 Times.Once);
         }
+
+        [Test]
+        public void If_The_Starting_Player_Passes_They_Have_To_Draw_A_Card()
+        {
+            var player = PlayerMocks.Passing();
+            var board = BoardMocks
+                .WithTopPlayedCardAndSupply(
+                    "Qc",
+                    Deck.TopDown(
+                        "As",
+                        "Qh"));
+
+            var game = new Game(
+                board.Object,
+                new[]
+                {
+                    player.Object
+                });
+
+            game.NextTurn();
+
+            player.Verify(
+                p => p.TakeCard(Card.From("As")),
+                Times.Once);
+        }
     }
 }

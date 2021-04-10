@@ -1,7 +1,7 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using MauMauSharp.Boards;
+﻿using MauMauSharp.Boards;
 using MauMauSharp.Players;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace MauMauSharp.Games
 {
@@ -23,8 +23,11 @@ namespace MauMauSharp.Games
             // TODO: Use player whose turn it is
             var card = _players.First().PassOrPlayCard(
                 new(_board.GetState()));
+
             if (card is not null)
                 _board.PlayCard(card);
+            else
+                _players.First().TakeCard(_board.DrawCardFromSupply());
         }
     }
 }
