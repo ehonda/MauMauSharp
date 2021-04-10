@@ -18,7 +18,6 @@ namespace MauMauSharp.Tests.Games
                 BoardMocks.WithTopPlayedCard("Kc"),
                 new[] { player });
             
-
             game.NextTurn();
 
             player.Verify(
@@ -35,7 +34,7 @@ namespace MauMauSharp.Tests.Games
 
             var game = Game.FromMocks(board, new[] { player });
 
-            var stateBeforeTurn = new MauMauSharp.Games.GameState(board.Object.GetState());
+            var stateBeforeTurn = game.GameState;
             game.NextTurn();
 
             player.Verify(

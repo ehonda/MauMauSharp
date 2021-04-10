@@ -10,6 +10,9 @@ namespace MauMauSharp.Games
         private readonly IBoard _board;
         private readonly List<IPlayer> _players;
 
+        // TODO: Need to decide how we handle hidden info for the different players here
+        public GameState GameState => new(_board.GetState());
+
         public Game(IBoard board, IEnumerable<IPlayer> players)
         {
             _board = board;
