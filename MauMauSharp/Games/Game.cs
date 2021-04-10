@@ -1,4 +1,5 @@
-﻿using MauMauSharp.Boards;
+﻿using CyclicEnumerators;
+using MauMauSharp.Boards;
 using MauMauSharp.Players;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,7 +9,10 @@ namespace MauMauSharp.Games
     public class Game
     {
         private readonly IBoard _board;
+        // TODO: This should be immutable, we don't want to remove players since we iterate over them
+        // TODO: Do we really need this, or is the enumerator enough?
         private readonly List<IPlayer> _players;
+        private readonly IEnumerator<IPlayer> _activePlayer;
 
         // TODO: Need to decide how we handle hidden info for the different players here
         public GameState GameState => new(_board.BoardState);
@@ -17,20 +21,21 @@ namespace MauMauSharp.Games
         {
             _board = board;
             _players = players.ToList();
+            _activePlayer = _players.Cycle().GetEnumerator();
         }
 
         public void NextTurn()
         {
-            // TODO: Players need to be able to pass (and draw a card) willingly!
+            _activePlayer.MoveNext();
+
             // TODO: Need to check if the move is legal
-            // TODO: Use player whose turn it is
-            var card = _players.First().PassOrPlayCard(
+            var card = _activePlayer.Current.PassOrPlayCard(
                 new(_board.BoardState));
 
             if (card is not null)
                 _board.PlayCard(card);
             else
-                _players.First().TakeCard(_board.DrawCardFromSupply());
+                _activePlayer.Current.TakeCard(_board.DrawCardFromSupply());
         }
     }
 }

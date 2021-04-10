@@ -9,6 +9,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MauMauSharp.Tests", "MauMau
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MauMauSharp.TestUtilities", "MauMauSharp.TestUtilities\MauMauSharp.TestUtilities.csproj", "{E3DE046B-B5E9-49F5-A1C2-00126A039117}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CyclicEnumerators", "CyclicEnumerators\CyclicEnumerators.csproj", "{EBFCB11D-4602-48B1-83EF-CB4A7D24CA24}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -55,6 +57,18 @@ Global
 		{E3DE046B-B5E9-49F5-A1C2-00126A039117}.Release|x64.Build.0 = Release|Any CPU
 		{E3DE046B-B5E9-49F5-A1C2-00126A039117}.Release|x86.ActiveCfg = Release|Any CPU
 		{E3DE046B-B5E9-49F5-A1C2-00126A039117}.Release|x86.Build.0 = Release|Any CPU
+		{EBFCB11D-4602-48B1-83EF-CB4A7D24CA24}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EBFCB11D-4602-48B1-83EF-CB4A7D24CA24}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EBFCB11D-4602-48B1-83EF-CB4A7D24CA24}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{EBFCB11D-4602-48B1-83EF-CB4A7D24CA24}.Debug|x64.Build.0 = Debug|Any CPU
+		{EBFCB11D-4602-48B1-83EF-CB4A7D24CA24}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{EBFCB11D-4602-48B1-83EF-CB4A7D24CA24}.Debug|x86.Build.0 = Debug|Any CPU
+		{EBFCB11D-4602-48B1-83EF-CB4A7D24CA24}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EBFCB11D-4602-48B1-83EF-CB4A7D24CA24}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EBFCB11D-4602-48B1-83EF-CB4A7D24CA24}.Release|x64.ActiveCfg = Release|Any CPU
+		{EBFCB11D-4602-48B1-83EF-CB4A7D24CA24}.Release|x64.Build.0 = Release|Any CPU
+		{EBFCB11D-4602-48B1-83EF-CB4A7D24CA24}.Release|x86.ActiveCfg = Release|Any CPU
+		{EBFCB11D-4602-48B1-83EF-CB4A7D24CA24}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
