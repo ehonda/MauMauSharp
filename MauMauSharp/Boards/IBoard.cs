@@ -10,6 +10,7 @@ namespace MauMauSharp.Boards
 
         public Card DrawCardFromSupply();
 
+        // TODO: Make this a get-only property
         public BoardState GetState();
     }
 }
