@@ -85,5 +85,36 @@ namespace MauMauSharp.Tests.Games
                 p => p.TakeCard(Card.From("Qh")),
                 Times.Once);
         }
+
+        [Test]
+        public void The_Starting_Player_Takes_Another_Turn_After_All_Players_Have_Taken_A_Turn()
+        {
+            var playerA = PlayerMocks.Passing();
+            var playerB = PlayerMocks.Passing();
+            var game = Game.FromMocks(
+                BoardMocks.WithTopPlayedCardAndSupply(
+                    "Qc",
+                    Deck.TopDown(
+                        "As",
+                        "Qh",
+                        "7d")),
+                new[] { playerA, playerB });
+
+            game.NextTurn();
+            game.NextTurn();
+            game.NextTurn();
+
+            playerA.Verify(
+                p => p.TakeCard(Card.From("As")),
+                Times.Once);
+
+            playerB.Verify(
+                p => p.TakeCard(Card.From("Qh")),
+                Times.Once);
+
+            playerA.Verify(
+                p => p.TakeCard(Card.From("7d")),
+                Times.Once);
+        }
     }
 }
