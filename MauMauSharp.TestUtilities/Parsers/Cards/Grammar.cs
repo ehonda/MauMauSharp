@@ -1,7 +1,7 @@
-﻿using System.Collections.Generic;
-using MauMauSharp.Cards;
+﻿using MauMauSharp.Cards;
 using MauMauSharp.Cards.Enums;
 using Sprache;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace MauMauSharp.TestUtilities.Parsers.Cards
