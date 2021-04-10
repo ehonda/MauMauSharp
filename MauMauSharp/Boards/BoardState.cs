@@ -3,5 +3,5 @@
 namespace MauMauSharp.Boards
 {
     // TODO: Add NumberOfCardsPlayed?
-    public record BoardState(Card TopPlayedCard, int NumberOfCardsInSupply);
+    public record BoardState(Card TopPlayedCard, int SupplyCount);
 }
