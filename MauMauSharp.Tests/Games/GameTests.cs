@@ -1,5 +1,5 @@
-﻿using MauMauSharp.Games;
-using MauMauSharp.TestUtilities.Mocks.Boards;
+﻿using MauMauSharp.TestUtilities.Mocks.Boards;
+using MauMauSharp.TestUtilities.Mocks.Fluent;
 using MauMauSharp.TestUtilities.Mocks.Players;
 using MauMauSharp.TestUtilities.Parsers.Fluent;
 using Moq;
@@ -14,20 +14,15 @@ namespace MauMauSharp.Tests.Games
         public void The_Starting_Player_Can_Pass_Or_Play_A_Card_On_The_First_Turn()
         {
             var player = PlayerMocks.PlayingCard("Qc");
-
-            var game = new Game(
-                BoardMocks
-                    .WithTopPlayedCard("Kc")
-                    .Object,
-                new[]
-                {
-                    player.Object
-                });
+            var game = Game.FromMocks(
+                BoardMocks.WithTopPlayedCard("Kc"),
+                new[] { player });
+            
 
             game.NextTurn();
 
             player.Verify(
-                p => p.PassOrPlayCard(It.IsAny<GameState>()),
+                p => p.PassOrPlayCard(It.IsAny<MauMauSharp.Games.GameState>()),
                 Times.Once);
         }
 
@@ -38,14 +33,9 @@ namespace MauMauSharp.Tests.Games
             var board = BoardMocks
                 .WithTopPlayedCard("Kc");
 
-            var game = new Game(
-                board.Object,
-                new[]
-                {
-                    player.Object
-                });
+            var game = Game.FromMocks(board, new[] { player });
 
-            var stateBeforeTurn = new GameState(board.Object.GetState());
+            var stateBeforeTurn = new MauMauSharp.Games.GameState(board.Object.GetState());
             game.NextTurn();
 
             player.Verify(
@@ -64,13 +54,7 @@ namespace MauMauSharp.Tests.Games
                         "As",
                         "Qh"));
 
-            var game = new Game(
-                board.Object,
-                new[]
-                {
-                    player.Object
-                });
-
+            var game = Game.FromMocks(board, new[] { player });
             game.NextTurn();
 
             player.Verify(
