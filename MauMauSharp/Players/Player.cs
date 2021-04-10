@@ -1,6 +1,6 @@
-﻿using System;
-using MauMauSharp.Cards;
+﻿using MauMauSharp.Cards;
 using MauMauSharp.Games;
+using System;
 using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.Linq;
@@ -25,6 +25,7 @@ namespace MauMauSharp.Players
         public Card? PassOrPlayCard(GameState gameState)
         {
             var card = _playerIo.ChooseCardToPlayOrPass(gameState, Hand);
+
             if (card is null)
                 return null;
 
