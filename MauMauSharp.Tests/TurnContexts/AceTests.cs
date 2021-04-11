@@ -17,6 +17,12 @@ namespace MauMauSharp.Tests.TurnContexts
             });
 
         [Test]
+        public void Ace_NextTurnContext_Throws_On_Non_Null_Played_Card()
+            => Assert.Catch<InvalidOperationException>(
+                () => new Ace(Card.From("Ad"))
+                    .NextTurnContext(Card.From("Td"), PlayerMocks.Arbitrary().Object));
+
+        [Test]
         public void Zero_Cards_Are_Drawn_On_An_Ace_Turn_Pass()
         {
             var ace = new Ace(Card.From("Ad"));

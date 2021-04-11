@@ -29,7 +29,10 @@ namespace MauMauSharp.TurnContexts
         public ITurnContext NextTurnContext(Card? playedCard, IPlayer activePlayer)
             => playedCard switch
             {
-                null => new Regular(_topPlayedCard)
+                null => new Regular(_topPlayedCard),
+
+                _ => throw new InvalidOperationException(
+                    $"Can't play a card on an Ace turn: {playedCard}")
             };
     }
 }
