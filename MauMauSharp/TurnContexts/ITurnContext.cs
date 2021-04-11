@@ -2,7 +2,7 @@
 using MauMauSharp.Players;
 using System.Collections.Immutable;
 
-namespace MauMauSharp.Turns
+namespace MauMauSharp.TurnContexts
 {
     public interface ITurnContext
     {
