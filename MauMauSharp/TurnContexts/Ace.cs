@@ -1,8 +1,8 @@
-﻿using System;
-using MauMauSharp.Cards;
-using MauMauSharp.Players;
-using System.Collections.Immutable;
+﻿using MauMauSharp.Cards;
 using MauMauSharp.Cards.Enums;
+using MauMauSharp.Players;
+using System;
+using System.Collections.Immutable;
 
 namespace MauMauSharp.TurnContexts
 {
