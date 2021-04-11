@@ -11,14 +11,14 @@ namespace MauMauSharp.Tests.TurnContexts
         [Test]
         public void One_Card_Is_To_Draw_On_A_Regular_Turn_Pass()
         {
-            var regular = new Regular(Hand.Empty());
+            var regular = new Regular(Card.From("8s"));
             Assert.That(regular.CardsToDrawOnPass, Is.EqualTo(1));
         }
 
         [Test]
         public void If_A_Regular_Turn_Is_Passed_The_Next_Turn_Is_Regular_With_The_Same_Playable_Cards()
         {
-            var first = new Regular(Hand.From("As Ks Qs Js Ts 9s 8s 7s 8d 8c 8h Jd Jc Jh"));
+            var first = new Regular(Card.From("8s"));
             var second = first.NextTurnContext(null, PlayerMocks.Arbitrary().Object);
 
             Assert.That(second, Is.TypeOf<Regular>());

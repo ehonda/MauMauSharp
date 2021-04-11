@@ -16,11 +16,6 @@ namespace MauMauSharp.TurnContexts
         /// <inheritdoc />
         public int CardsToDrawOnPass { get; } = 1;
 
-        public Regular(IEnumerable<Card> playableCards)
-        {
-            PlayableCards = playableCards.ToImmutableArray();
-        }
-
         public Regular(Card topPlayedCard)
             => PlayableCards = Deck
                 .AllCardsOfSuit(topPlayedCard.Suit)
@@ -30,6 +25,11 @@ namespace MauMauSharp.TurnContexts
                     .AllCardsOfRank(Rank.Jack))
                 .Distinct()
                 .ToImmutableArray();
+
+        private Regular(IEnumerable<Card> playableCards)
+        {
+            PlayableCards = playableCards.ToImmutableArray();
+        }
 
         /// <inheritdoc />
         public ITurnContext NextTurnContext(Card? playedCard, IPlayer activePlayer)
