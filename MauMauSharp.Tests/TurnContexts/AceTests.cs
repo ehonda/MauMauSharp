@@ -2,12 +2,20 @@
 using MauMauSharp.TestUtilities.Parsers.Fluent;
 using MauMauSharp.TurnContexts;
 using NUnit.Framework;
+using System;
 
 namespace MauMauSharp.Tests.TurnContexts
 {
     [TestFixture]
     public class AceTests
     {
+        [Test]
+        public void Ace_Construction_Throws_If_Constructed_From_A_Non_Ace()
+            => Assert.Catch<ArgumentException>(() =>
+            {
+                _ = new Ace(Card.From("8h"));
+            });
+
         [Test]
         public void Zero_Cards_Are_Drawn_On_An_Ace_Turn_Pass()
         {
