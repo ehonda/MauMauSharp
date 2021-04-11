@@ -28,6 +28,7 @@ namespace MauMauSharp.Tests.TurnContexts
             Assert.That(first.PlayableCards, Is.EqualTo(second.PlayableCards));
         }
 
+        // TODO: Parameterize this test over all starting cards
         [TestCaseSource(
             typeof(TurnContextsData),
             nameof(TurnContextsData.RegularCardsOfSuit),
