@@ -11,19 +11,18 @@ namespace MauMauSharp.TurnContexts
         public ImmutableArray<Card> PlayableCards { get; }
 
         /// <inheritdoc />
-        public int CardsToDrawOnPass { get; }
+        public int CardsToDrawOnPass { get; } = 1;
 
-        public Regular(IEnumerable<Card> playableCards, int cardsToDrawOnPass)
+        public Regular(IEnumerable<Card> playableCards)
         {
             PlayableCards = playableCards.ToImmutableArray();
-            CardsToDrawOnPass = cardsToDrawOnPass;
         }
 
         /// <inheritdoc />
         public ITurnContext NextTurnContext(Card? playedCard, IPlayer activePlayer)
             => playedCard switch
             {
-                null => new Regular(PlayableCards, 1)
+                null => new Regular(PlayableCards)
             };
     }
 }
