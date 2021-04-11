@@ -1,9 +1,7 @@
-﻿using MauMauSharp.TurnContexts;
-using NUnit.Framework;
-using System.Linq;
-using MauMauSharp.TestUtilities.Mocks.Players;
+﻿using MauMauSharp.TestUtilities.Mocks.Players;
 using MauMauSharp.TestUtilities.Parsers.Fluent;
-using Card = MauMauSharp.Cards.Card;
+using MauMauSharp.TurnContexts;
+using NUnit.Framework;
 
 namespace MauMauSharp.Tests.TurnContexts
 {
@@ -13,7 +11,7 @@ namespace MauMauSharp.Tests.TurnContexts
         [Test]
         public void One_Card_Is_To_Draw_On_A_Regular_Turn_Pass()
         {
-            var regular = new Regular(Enumerable.Empty<Card>());
+            var regular = new Regular(Hand.Empty());
             Assert.That(regular.CardsToDrawOnPass, Is.EqualTo(1));
         }
 
