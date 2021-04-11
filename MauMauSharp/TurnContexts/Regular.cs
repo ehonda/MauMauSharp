@@ -46,6 +46,8 @@ namespace MauMauSharp.TurnContexts
                     or Rank.Eight
                 } => new Regular(playedCard),
 
+                { Rank: Rank.Ace } => new Ace(),
+
                 _ => throw new ArgumentException($"Unknown card played: {playedCard}")
             };
     }

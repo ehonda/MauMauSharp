@@ -53,5 +53,15 @@ namespace MauMauSharp.Tests.TurnContexts
             Assert.That(Deck.AllCardsOfRank(cardToPlay.Rank), Is.SubsetOf(next.PlayableCards));
             Assert.That(Deck.AllCardsOfRank(Rank.Jack), Is.SubsetOf(next.PlayableCards));
         }
+
+        // TODO: Parameterize over all aces
+        [Test]
+        public void An_Ace_Played_Leads_To_An_Ace_Turn_Context()
+        {
+            var regular = new Regular(Card.From("8s"));
+            var next = regular.NextTurnContext(Card.From("As"), PlayerMocks.Arbitrary().Object);
+
+            Assert.That(next, Is.TypeOf<Ace>());
+        }
     }
 }
