@@ -10,6 +10,6 @@ namespace MauMauSharp.Turns
 
         public int CardsToDrawOnPass { get; }
 
-        public ITurnContext NexTurnContext(Card? playedCard, IPlayer activePlayer);
+        public ITurnContext NextTurnContext(Card? playedCard, IPlayer activePlayer);
     }
 }
