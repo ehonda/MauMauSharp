@@ -1,7 +1,10 @@
-﻿using MauMauSharp.TestUtilities.Mocks.Players;
+﻿using MauMauSharp.Cards.Enums;
+using MauMauSharp.TestUtilities.Data.TurnContexts;
+using MauMauSharp.TestUtilities.Mocks.Players;
 using MauMauSharp.TestUtilities.Parsers.Fluent;
 using MauMauSharp.TurnContexts;
 using NUnit.Framework;
+using Deck = MauMauSharp.Cards.Decks.Deck;
 
 namespace MauMauSharp.Tests.TurnContexts
 {
@@ -23,6 +26,21 @@ namespace MauMauSharp.Tests.TurnContexts
 
             Assert.That(second, Is.TypeOf<Regular>());
             Assert.That(first.PlayableCards, Is.EqualTo(second.PlayableCards));
+        }
+
+        [TestCaseSource(
+            typeof(TurnContextsData),
+            nameof(TurnContextsData.RegularCardsOfSuit),
+            new object[] { Suit.Spades })]
+        public void Regular_Cards_Of_The_Same_Suit_Can_Be_Played_And_Lead_To_A_Regular_Next_Turn(
+            MauMauSharp.Cards.Card cardToPlay)
+        {
+            var regular = new Regular(Card.From("8s"));
+            var next = regular.NextTurnContext(cardToPlay, PlayerMocks.Arbitrary().Object);
+
+            Assert.That(Deck.AllCardsOfSuit(Suit.Spades), Is.SubsetOf(next.PlayableCards));
+            Assert.That(Deck.AllCardsOfRank(cardToPlay.Rank), Is.SubsetOf(next.PlayableCards));
+            Assert.That(Deck.AllCardsOfRank(Rank.Jack), Is.SubsetOf(next.PlayableCards));
         }
     }
 }
