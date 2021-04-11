@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.Linq;
 using MauMauSharp.Cards.Enums;
@@ -14,5 +15,15 @@ namespace MauMauSharp.Cards.Decks
                     .GetValues<Rank>()
                     .Select(rank => new Card(rank, suit)))
                 .ToImmutableArray();
+
+        public static IEnumerable<Card> AllCardsOfRank(Rank rank)
+            => Enum
+                .GetValues<Suit>()
+                .Select(suit => new Card(rank, suit));
+
+        public static IEnumerable<Card> AllCardsOfSuit(Suit suit)
+            => Enum
+                .GetValues<Rank>()
+                .Select(rank => new Card(rank, suit));
     }
 }
