@@ -1,4 +1,5 @@
-﻿using MauMauSharp.Cards;
+﻿using System;
+using MauMauSharp.Cards;
 using MauMauSharp.Cards.Decks;
 using MauMauSharp.Cards.Enums;
 using MauMauSharp.Players;
@@ -43,7 +44,9 @@ namespace MauMauSharp.TurnContexts
                     or Rank.Ten
                     or Rank.Nine
                     or Rank.Eight
-                } => new Regular(playedCard)
+                } => new Regular(playedCard),
+
+                _ => throw new ArgumentException($"Unknown card played: {playedCard}")
             };
     }
 }

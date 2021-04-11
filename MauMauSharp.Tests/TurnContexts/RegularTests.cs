@@ -4,6 +4,7 @@ using MauMauSharp.TestUtilities.Mocks.Players;
 using MauMauSharp.TestUtilities.Parsers.Fluent;
 using MauMauSharp.TurnContexts;
 using NUnit.Framework;
+using System;
 using Deck = MauMauSharp.Cards.Decks.Deck;
 
 namespace MauMauSharp.Tests.TurnContexts
@@ -11,6 +12,15 @@ namespace MauMauSharp.Tests.TurnContexts
     [TestFixture]
     public class RegularTests
     {
+        [Test]
+        public void NextTurnContext_Throws_ArgumentException_On_Unknown_Played_Card()
+            => Assert.Catch<ArgumentException>(
+                () => new Regular(Card
+                    .From("8s"))
+                    .NextTurnContext(
+                        TurnContextsData.SomeUnknownCard,
+                        PlayerMocks.Arbitrary().Object));
+
         [Test]
         public void One_Card_Is_To_Draw_On_A_Regular_Turn_Pass()
         {
