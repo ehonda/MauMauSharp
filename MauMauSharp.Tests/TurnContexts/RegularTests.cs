@@ -21,6 +21,7 @@ namespace MauMauSharp.Tests.TurnContexts
             var first = new Regular(Hand.From("As Ks Qs Js Ts 9s 8s 7s 8d 8c 8h Jd Jc Jh"));
             var second = first.NextTurnContext(null, PlayerMocks.Arbitrary().Object);
 
+            Assert.That(second, Is.TypeOf<Regular>());
             Assert.That(first.PlayableCards, Is.EqualTo(second.PlayableCards));
         }
     }
