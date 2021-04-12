@@ -14,5 +14,11 @@ namespace MauMauSharp.Tests.TurnContexts
             {
                 _ = new Seven(Card.From("Td"));
             });
+
+        [Test]
+        public void Two_N_Cards_Are_Drawn_On_Pass_After_N_Consecutive_Seven_Turns()
+        {
+            Assert.Fail();
+        }
     }
 }
