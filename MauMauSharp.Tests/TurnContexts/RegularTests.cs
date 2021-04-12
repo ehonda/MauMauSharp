@@ -18,7 +18,7 @@ namespace MauMauSharp.Tests.TurnContexts
                 () => new Regular(Card
                     .From("8s"))
                     .NextTurnContext(
-                        TurnContextsData.SomeUnknownCard,
+                        RegularData.SomeUnknownCard,
                         PlayerMocks.Arbitrary().Object));
 
         [Test]
@@ -40,8 +40,8 @@ namespace MauMauSharp.Tests.TurnContexts
 
         // TODO: Parameterize this test over all starting cards
         [TestCaseSource(
-            typeof(TurnContextsData),
-            nameof(TurnContextsData.RegularCardsOfSuit),
+            typeof(RegularData),
+            nameof(RegularData.RegularCardsOfSuit),
             new object[] { Suit.Spades })]
         public void Regular_Cards_Of_The_Same_Suit_Can_Be_Played_And_Lead_To_A_Regular_Next_Turn(
             MauMauSharp.Cards.Card cardToPlay)

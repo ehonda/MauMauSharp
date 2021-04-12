@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace MauMauSharp.TestUtilities.Data.TurnContexts
 {
-    public static class TurnContextsData
+    public static class RegularData
     {
         private static Rank SomeUnknownRank { get; } = (Rank)55555;
 
