@@ -1,7 +1,12 @@
-﻿using MauMauSharp.TestUtilities.Parsers.Fluent;
+﻿using MauMauSharp.TestUtilities.Data.TurnContexts;
+using MauMauSharp.TestUtilities.Mocks.Players;
+using MauMauSharp.TestUtilities.Parsers.Fluent;
 using MauMauSharp.TurnContexts;
 using NUnit.Framework;
 using System;
+using System.Collections.Generic;
+using System.Collections.Immutable;
+using System.Linq;
 
 namespace MauMauSharp.Tests.TurnContexts
 {
@@ -15,10 +20,22 @@ namespace MauMauSharp.Tests.TurnContexts
                 _ = new Seven(Card.From("Td"));
             });
 
-        [Test]
-        public void Two_N_Cards_Are_Drawn_On_Pass_After_N_Consecutive_Seven_Turns()
+        [TestCaseSource(
+            typeof(SevenData),
+            nameof(SevenData.ConsecutiveSevensOneToCount),
+            new object[] { 5 })]
+        public void Two_N_Cards_Are_Drawn_On_Pass_After_N_Consecutive_Seven_Turns(
+            IEnumerable<MauMauSharp.Cards.Card> sevens)
         {
-            Assert.Fail();
+            var sevensArray = sevens.ToImmutableArray();
+
+            var nthTurn = sevensArray
+                .Skip(1)
+                .Aggregate(
+                    new Seven(sevensArray.First()) as ITurnContext,
+                    (turn, card) => turn.NextTurnContext(card, PlayerMocks.Arbitrary().Object));
+
+            Assert.That(nthTurn.CardsToDrawOnPass, Is.EqualTo(2 * sevensArray.Count()));
         }
     }
 }

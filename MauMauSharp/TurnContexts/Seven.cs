@@ -1,8 +1,8 @@
-﻿using System;
-using System.Collections.Immutable;
-using MauMauSharp.Cards;
+﻿using MauMauSharp.Cards;
 using MauMauSharp.Cards.Enums;
 using MauMauSharp.Players;
+using System;
+using System.Collections.Immutable;
 
 namespace MauMauSharp.TurnContexts
 {
@@ -12,7 +12,7 @@ namespace MauMauSharp.TurnContexts
         public ImmutableArray<Card> PlayableCards { get; }
 
         /// <inheritdoc />
-        public int CardsToDrawOnPass { get; }
+        public int CardsToDrawOnPass { get; } = 2;
 
         private readonly Card _topPlayedCard;
 
@@ -25,7 +25,17 @@ namespace MauMauSharp.TurnContexts
             _topPlayedCard = topPlayedCard;
         }
 
+        private Seven(Card topPlayedCard, int cardsToDrawOnPass)
+        {
+            _topPlayedCard = topPlayedCard;
+            CardsToDrawOnPass = cardsToDrawOnPass + 2;
+        }
+
         /// <inheritdoc />
-        public ITurnContext NextTurnContext(Card? playedCard, IPlayer activePlayer) => null;
+        public ITurnContext NextTurnContext(Card? playedCard, IPlayer activePlayer)
+            => playedCard switch
+            {
+                { Rank: Rank.Seven } => new Seven(playedCard, CardsToDrawOnPass)
+            };
     }
 }
