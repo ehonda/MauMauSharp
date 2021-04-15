@@ -10,7 +10,8 @@ namespace CyclicEnumerators
         public CyclicEnumerable(IEnumerable<T> @base) => _base = @base;
 
         /// <inheritdoc />
-        public IEnumerator<T> GetEnumerator() => new CyclicEnumerator<T>(_base.GetEnumerator());
+        public IEnumerator<T> GetEnumerator()
+            => new CyclicEnumerator<T>(() => _base.GetEnumerator());
 
         /// <inheritdoc />
         IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
@@ -23,6 +24,7 @@ namespace CyclicEnumerators
         public CyclicEnumerable(IEnumerable @base) => _base = @base;
 
         /// <inheritdoc />
-        public IEnumerator GetEnumerator() => new CyclicEnumerator(_base.GetEnumerator());
+        public IEnumerator GetEnumerator()
+            => new CyclicEnumerator(() => _base.GetEnumerator());
     }
 }
