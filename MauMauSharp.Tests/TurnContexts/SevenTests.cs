@@ -22,6 +22,16 @@ namespace MauMauSharp.Tests.TurnContexts
 
         [TestCaseSource(
             typeof(SevenData),
+            nameof(SevenData.NthConsecutiveSevenTurnOneToCount),
+            new object[] { 5 })]
+        public void Only_Sevens_Can_Be_Played_On_A_Seven_Turn(ITurnContext turn)
+        {
+            Assert.That(turn, Is.TypeOf<Seven>());
+            Assert.That(turn.PlayableCards, Is.EquivalentTo(SevenData.AllSevens()));
+        }
+
+        [TestCaseSource(
+            typeof(SevenData),
             nameof(SevenData.ConsecutiveSevensOneToCount),
             new object[] { 5 })]
         public void Two_N_Cards_Are_Drawn_On_Pass_After_N_Consecutive_Seven_Turns(

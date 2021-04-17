@@ -3,6 +3,7 @@ using MauMauSharp.Cards.Enums;
 using MauMauSharp.Players;
 using System;
 using System.Collections.Immutable;
+using System.Linq;
 
 namespace MauMauSharp.TurnContexts
 {
@@ -10,6 +11,10 @@ namespace MauMauSharp.TurnContexts
     {
         /// <inheritdoc />
         public ImmutableArray<Card> PlayableCards { get; }
+            = Enum
+                .GetValues<Suit>()
+                .Select(suit => new Card(Rank.Seven, suit))
+                .ToImmutableArray();
 
         /// <inheritdoc />
         public int CardsToDrawOnPass { get; } = 2;
