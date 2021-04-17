@@ -1,6 +1,7 @@
 ﻿using MauMauSharp.Cards;
 using MauMauSharp.Cards.Enums;
 using System.Collections.Generic;
+using MauMauSharp.TurnContexts;
 
 namespace MauMauSharp.TestUtilities.Data.TurnContexts
 {
@@ -19,5 +20,8 @@ namespace MauMauSharp.TestUtilities.Data.TurnContexts
                 new(Rank.Nine, suit),
                 new(Rank.Eight, suit),
             };
+
+        public static IEnumerable<Card> ExpectedPlayableCards(Card topPlayedCard)
+            => new Regular(topPlayedCard).PlayableCards;
     }
 }

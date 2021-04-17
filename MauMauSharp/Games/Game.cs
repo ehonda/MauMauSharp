@@ -1,10 +1,10 @@
 ﻿using CyclicEnumerators;
 using MauMauSharp.Boards;
+using MauMauSharp.Cards;
 using MauMauSharp.Players;
 using System.Collections.Generic;
+using System.Collections.Immutable;
 using System.Linq;
-using MauMauSharp.Cards;
-using Enumerable = System.Linq.Enumerable;
 
 namespace MauMauSharp.Games
 {
@@ -17,7 +17,7 @@ namespace MauMauSharp.Games
         private readonly IEnumerator<IPlayer> _activePlayer;
 
         // TODO: Need to decide how we handle hidden info for the different players here
-        public GameState GameState => new(_board.BoardState, Enumerable.Empty<Card>());
+        public GameState GameState => new(_board.BoardState, ImmutableArray<Card>.Empty);
 
         public Game(IBoard board, IEnumerable<IPlayer> players)
         {

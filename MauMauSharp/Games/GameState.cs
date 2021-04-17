@@ -1,6 +1,6 @@
-﻿using System.Collections.Generic;
-using MauMauSharp.Boards;
+﻿using MauMauSharp.Boards;
 using MauMauSharp.Cards;
+using System.Collections.Immutable;
 
 namespace MauMauSharp.Games
 {
@@ -8,5 +8,5 @@ namespace MauMauSharp.Games
     //          - The player's hand (As Value object? / ValueSequence?)
     //          - The number of cards in the other player's hands
     //          - A list of all playable cards / current valid move validator
-    public record GameState(BoardState BoardState, IEnumerable<Card> PlayableCards);
+    public record GameState(BoardState BoardState, ImmutableArray<Card> PlayableCards);
 }
