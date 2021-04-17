@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.Linq;
+using MauMauSharp.Cards.Enums;
 
 namespace MauMauSharp.Players
 {
@@ -41,5 +42,9 @@ namespace MauMauSharp.Players
         {
             _hand.Add(card);
         }
+
+        /// <inheritdoc />
+        public Suit NameSuitToShapeShiftJackInto()
+            => _playerIo.NameSuitToShapeShiftJackInto();
     }
 }
