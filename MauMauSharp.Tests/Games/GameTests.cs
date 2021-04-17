@@ -1,9 +1,13 @@
-﻿using MauMauSharp.TestUtilities.Mocks.Boards;
-using MauMauSharp.TestUtilities.Mocks.Fluent;
+﻿using System.Collections.Immutable;
+using System.Linq;
+using MauMauSharp.Games;
+using MauMauSharp.TestUtilities.Data.TurnContexts;
+using MauMauSharp.TestUtilities.Mocks.Boards;
 using MauMauSharp.TestUtilities.Mocks.Players;
 using MauMauSharp.TestUtilities.Parsers.Fluent;
 using Moq;
 using NUnit.Framework;
+using Game = MauMauSharp.TestUtilities.Mocks.Fluent.Game;
 
 namespace MauMauSharp.Tests.Games
 {
@@ -114,6 +118,29 @@ namespace MauMauSharp.Tests.Games
 
             playerA.Verify(
                 p => p.TakeCard(Card.From("7d")),
+                Times.Once);
+        }
+
+        [Test]
+        public void The_Starting_Turn_Is_Regular()
+        {
+            var playerA = PlayerMocks.Passing();
+            var game = Game.FromMocks(
+                BoardMocks.WithTopPlayedCardAndSupply(
+                    "Qc",
+                    Deck.TopDown(
+                        "As",
+                        "Qh",
+                        "7d")),
+                new[] { playerA });
+
+            game.NextTurn();
+
+            playerA.Verify(
+                p => p.PassOrPlayCard(
+                    It.Is<GameState>(gameState
+                        => gameState.PlayableCards.SequenceEqual(
+                            RegularData.ExpectedPlayableCards(Card.From("Qc")), null))),
                 Times.Once);
         }
     }
