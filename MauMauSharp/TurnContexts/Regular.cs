@@ -1,8 +1,8 @@
-﻿using System;
-using MauMauSharp.Cards;
+﻿using MauMauSharp.Cards;
 using MauMauSharp.Cards.Decks;
 using MauMauSharp.Cards.Enums;
 using MauMauSharp.Players;
+using System;
 using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.Linq;
@@ -47,6 +47,8 @@ namespace MauMauSharp.TurnContexts
                 } => new Regular(playedCard),
 
                 { Rank: Rank.Ace } => new Ace(playedCard),
+
+                { Rank: Rank.Seven } => new Seven(playedCard),
 
                 _ => throw new ArgumentException($"Unknown card played: {playedCard}")
             };

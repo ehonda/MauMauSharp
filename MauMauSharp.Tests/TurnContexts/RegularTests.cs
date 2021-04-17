@@ -63,5 +63,15 @@ namespace MauMauSharp.Tests.TurnContexts
 
             Assert.That(next, Is.TypeOf<Ace>());
         }
+
+        // TODO: Parameterize over all sevens
+        [Test]
+        public void A_Seven_Played_Leads_To_A_Seven_Turn_Context()
+        {
+            var regular = new Regular(Card.From("8s"));
+            var next = regular.NextTurnContext(Card.From("7s"), PlayerMocks.Arbitrary().Object);
+
+            Assert.That(next, Is.TypeOf<Seven>());
+        }
     }
 }
