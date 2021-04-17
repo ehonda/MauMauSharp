@@ -3,6 +3,8 @@ using MauMauSharp.Boards;
 using MauMauSharp.Players;
 using System.Collections.Generic;
 using System.Linq;
+using MauMauSharp.Cards;
+using Enumerable = System.Linq.Enumerable;
 
 namespace MauMauSharp.Games
 {
@@ -15,7 +17,7 @@ namespace MauMauSharp.Games
         private readonly IEnumerator<IPlayer> _activePlayer;
 
         // TODO: Need to decide how we handle hidden info for the different players here
-        public GameState GameState => new(_board.BoardState);
+        public GameState GameState => new(_board.BoardState, Enumerable.Empty<Card>());
 
         public Game(IBoard board, IEnumerable<IPlayer> players)
         {
@@ -29,8 +31,7 @@ namespace MauMauSharp.Games
             _activePlayer.MoveNext();
 
             // TODO: Need to check if the move is legal
-            var card = _activePlayer.Current.PassOrPlayCard(
-                new(_board.BoardState));
+            var card = _activePlayer.Current.PassOrPlayCard(GameState);
 
             if (card is not null)
                 _board.PlayCard(card);
