@@ -30,22 +30,17 @@ namespace MauMauSharp.Tests.TurnContexts
             Assert.That(turn.PlayableCards, Is.EquivalentTo(SevenData.AllSevens()));
         }
 
-        [TestCaseSource(
-            typeof(SevenData),
-            nameof(SevenData.ConsecutiveSevensOneToCount),
-            new object[] { 5 })]
-        public void Two_N_Cards_Are_Drawn_On_Pass_After_N_Consecutive_Seven_Turns(
-            IEnumerable<MauMauSharp.Cards.Card> sevens)
+        [TestCase(1)]
+        [TestCase(2)]
+        [TestCase(3)]
+        [TestCase(4)]
+        [TestCase(5)]
+        public void Two_N_Cards_Are_Drawn_On_Pass_After_N_Consecutive_Seven_Turns(int count)
         {
-            var sevensArray = sevens.ToImmutableArray();
+            var turn = SevenData.NthConsecutiveSevenTurn(count);
 
-            var nthTurn = sevensArray
-                .Skip(1)
-                .Aggregate(
-                    new Seven(sevensArray.First()) as ITurnContext,
-                    (turn, card) => turn.NextTurnContext(card, PlayerMocks.Arbitrary().Object));
-
-            Assert.That(nthTurn.CardsToDrawOnPass, Is.EqualTo(2 * sevensArray.Count()));
+            Assert.That(turn, Is.TypeOf<Seven>());
+            Assert.That(turn.CardsToDrawOnPass, Is.EqualTo(2 * count));
         }
     }
 }

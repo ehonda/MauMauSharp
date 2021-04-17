@@ -26,7 +26,7 @@ namespace MauMauSharp.TestUtilities.Data.TurnContexts
                 .Range(1, count)
                 .Select(NthConsecutiveSevenTurn);
 
-        private static ITurnContext NthConsecutiveSevenTurn(int count)
+        public static ITurnContext NthConsecutiveSevenTurn(int count)
         {
             var sevens = ConsecutiveSevens(count).ToImmutableArray();
             return sevens
