@@ -1,7 +1,9 @@
-﻿using MauMauSharp.Players;
+﻿using MauMauSharp.Cards.Enums;
+using MauMauSharp.Players;
 using MauMauSharp.TestUtilities.Data.Games;
 using MauMauSharp.TestUtilities.Mocks.Players;
 using MauMauSharp.TestUtilities.Parsers.Fluent;
+using Moq;
 using NUnit.Framework;
 using System;
 
@@ -58,6 +60,21 @@ namespace MauMauSharp.Tests.Players
             player.TakeCard(Card.From("Qc"));
 
             Assert.That(player.Hand, Is.EquivalentTo(Hand.From("Ad Qc")));
+        }
+
+        [TestCase(Suit.Spades)]
+        [TestCase(Suit.Hearts)]
+        [TestCase(Suit.Diamonds)]
+        [TestCase(Suit.Clubs)]
+        public void Jack_Shape_Shift_Decision_Is_Passed_To_Player_IO(Suit shiftTarget)
+        {
+            var playerIo = PlayerIOMocks.ShapeShiftingJackInto(shiftTarget);
+            var player = new Player(playerIo.Object, Hand.Empty());
+
+            var namedSuit = player.NameSuitToShapeShiftJackInto();
+
+            playerIo.Verify(p => p.NameSuitToShapeShiftJackInto(), Times.Once);
+            Assert.That(namedSuit, Is.EqualTo(shiftTarget));
         }
     }
 }
