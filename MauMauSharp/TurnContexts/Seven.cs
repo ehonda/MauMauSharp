@@ -41,7 +41,11 @@ namespace MauMauSharp.TurnContexts
             => playedCard switch
             {
                 null => new Regular(_topPlayedCard),
-                { Rank: Rank.Seven } => new Seven(playedCard, CardsToDrawOnPass)
+
+                { Rank: Rank.Seven } => new Seven(playedCard, CardsToDrawOnPass),
+
+                _ => throw new InvalidOperationException(
+                    $"Can't play a non-seven card on a Seven turn: {playedCard}")
             };
     }
 }

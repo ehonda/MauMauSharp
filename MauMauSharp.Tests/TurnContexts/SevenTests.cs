@@ -1,4 +1,7 @@
-﻿using MauMauSharp.TestUtilities.Data.TurnContexts;
+﻿using MauMauSharp.Cards.Enums;
+using MauMauSharp.TestUtilities.Data.Cards;
+using MauMauSharp.TestUtilities.Data.TurnContexts;
+using MauMauSharp.TestUtilities.Mocks.Players;
 using MauMauSharp.TestUtilities.Parsers.Fluent;
 using MauMauSharp.TurnContexts;
 using NUnit.Framework;
@@ -6,7 +9,6 @@ using System;
 using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.Linq;
-using MauMauSharp.TestUtilities.Mocks.Players;
 
 namespace MauMauSharp.Tests.TurnContexts
 {
@@ -18,6 +20,18 @@ namespace MauMauSharp.Tests.TurnContexts
             => Assert.Catch<ArgumentException>(() =>
             {
                 _ = new Seven(Card.From("Td"));
+            });
+
+        [TestCaseSource(
+            typeof(CardData),
+            nameof(CardData.AllButRank),
+            new object[] { Rank.Seven })]
+        public void Seven_Next_Turn_Throws_On_All_Cards_That_Are_Not_Rank_Seven(
+            MauMauSharp.Cards.Card card)
+            => Assert.Catch<InvalidOperationException>(() =>
+            {
+                _ = new Seven(Card.From("7d"))
+                    .NextTurnContext(card, PlayerMocks.Arbitrary().Object);
             });
 
         [TestCaseSource(
