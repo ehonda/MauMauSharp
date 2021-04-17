@@ -32,6 +32,8 @@ namespace MauMauSharp.TurnContexts
             PlayableCards = playableCards.ToImmutableArray();
         }
 
+        // TODO: Do we need the whole player interface here?
+        //          -> It would be nice to just pass something to get suit from
         /// <inheritdoc />
         public ITurnContext NextTurnContext(Card? playedCard, IPlayer activePlayer)
             => playedCard switch
@@ -49,6 +51,10 @@ namespace MauMauSharp.TurnContexts
                 { Rank: Rank.Ace } => new Ace(playedCard),
 
                 { Rank: Rank.Seven } => new Seven(playedCard),
+
+                { Rank: Rank.Jack } => new Regular(new Card(
+                    Rank.Jack,
+                    activePlayer.NameSuitToShapeShiftJackInto())),
 
                 _ => throw new ArgumentException($"Unknown card played: {playedCard}")
             };

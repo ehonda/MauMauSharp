@@ -1,5 +1,6 @@
 ﻿using JetBrains.Annotations;
 using MauMauSharp.Cards;
+using MauMauSharp.Cards.Enums;
 using MauMauSharp.Games;
 using MauMauSharp.Players;
 using Moq;
@@ -25,5 +26,14 @@ namespace MauMauSharp.TestUtilities.Mocks.Players
             => PlayingCard((Card)null!);
 
         public static Mock<IPlayer> Arbitrary() => new();
+
+        public static Mock<IPlayer> ShapeShiftingJackInto(Suit suit)
+        {
+            var mock = new Mock<IPlayer>();
+            mock
+                .Setup(player => player.NameSuitToShapeShiftJackInto())
+                .Returns(suit);
+            return mock;
+        }
     }
 }

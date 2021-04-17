@@ -73,5 +73,19 @@ namespace MauMauSharp.Tests.TurnContexts
 
             Assert.That(next, Is.TypeOf<Seven>());
         }
+
+        [Test]
+        public void A_Jack_Played_Asks_The_Active_Player_To_Name_A_Suit_To_ShapeShift_Jack_Into()
+        {
+            var regular = new Regular(Card.From("8s"));
+            var next = regular.NextTurnContext(
+                Card.From("Jd"),
+                PlayerMocks.ShapeShiftingJackInto(Suit.Hearts).Object);
+
+            Assert.That(next, Is.TypeOf<Regular>());
+            Assert.That(
+                next.PlayableCards,
+                Is.EquivalentTo(new Regular(Card.From("Jh")).PlayableCards));
+        }
     }
 }
