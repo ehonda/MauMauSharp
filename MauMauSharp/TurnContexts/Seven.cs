@@ -40,6 +40,7 @@ namespace MauMauSharp.TurnContexts
         public ITurnContext NextTurnContext(Card? playedCard, IPlayer activePlayer)
             => playedCard switch
             {
+                null => new Regular(_topPlayedCard),
                 { Rank: Rank.Seven } => new Seven(playedCard, CardsToDrawOnPass)
             };
     }

@@ -1,5 +1,4 @@
 ﻿using MauMauSharp.TestUtilities.Data.TurnContexts;
-using MauMauSharp.TestUtilities.Mocks.Players;
 using MauMauSharp.TestUtilities.Parsers.Fluent;
 using MauMauSharp.TurnContexts;
 using NUnit.Framework;
@@ -7,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.Linq;
+using MauMauSharp.TestUtilities.Mocks.Players;
 
 namespace MauMauSharp.Tests.TurnContexts
 {
@@ -41,6 +41,24 @@ namespace MauMauSharp.Tests.TurnContexts
 
             Assert.That(turn, Is.TypeOf<Seven>());
             Assert.That(turn.CardsToDrawOnPass, Is.EqualTo(2 * count));
+        }
+
+        [TestCaseSource(
+            typeof(SevenData),
+            nameof(SevenData.ConsecutiveSevensOneToCount),
+            new object[] { 5 })]
+        public void Next_Turn_Is_Regular_From_Top_Played_Card_On_A_Seven_Pass(
+            IEnumerable<MauMauSharp.Cards.Card> sevens)
+        {
+            var sevensArray = sevens.ToImmutableArray();
+            var nthTurn = SevenData.ToNthConsecutiveSevenTurn(sevensArray);
+
+            var regular = nthTurn.NextTurnContext(null, PlayerMocks.Arbitrary().Object);
+
+            Assert.That(regular, Is.TypeOf<Regular>());
+            Assert.That(
+                regular.PlayableCards, 
+                Is.EquivalentTo(new Regular(sevensArray.Last()).PlayableCards));
         }
     }
 }
