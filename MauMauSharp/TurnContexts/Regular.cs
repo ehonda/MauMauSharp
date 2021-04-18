@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.Linq;
+using MauMauSharp.Players.Extensions;
 
 namespace MauMauSharp.TurnContexts
 {
@@ -52,9 +53,7 @@ namespace MauMauSharp.TurnContexts
 
                 { Rank: Rank.Seven } => new Seven(playedCard),
 
-                { Rank: Rank.Jack } => new Regular(new Card(
-                    Rank.Jack,
-                    activePlayer.NameSuitToShapeShiftJackInto())),
+                { Rank: Rank.Jack } => new Regular(activePlayer.ShapeShiftJack()),
 
                 _ => throw new ArgumentException($"Unknown card played: {playedCard}")
             };
