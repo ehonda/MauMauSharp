@@ -2,7 +2,9 @@
 using MauMauSharp.Cards;
 using MauMauSharp.Cards.Enums;
 using MauMauSharp.TurnContexts;
+using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace MauMauSharp.TestUtilities.Data.TurnContexts
 {
@@ -12,6 +14,11 @@ namespace MauMauSharp.TestUtilities.Data.TurnContexts
         private static Rank SomeUnknownRank { get; } = (Rank)55555;
 
         public static Card SomeUnknownCard { get; } = new(SomeUnknownRank, Suit.Spades);
+
+        public static IEnumerable<Card> AllRegularCards()
+            => Enum
+                .GetValues<Suit>()
+                .SelectMany(RegularCardsOfSuit);
 
         public static IEnumerable<Card> RegularCardsOfSuit(Suit suit)
             => new Card[]

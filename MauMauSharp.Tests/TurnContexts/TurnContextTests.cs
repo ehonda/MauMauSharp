@@ -1,4 +1,5 @@
 ﻿using MauMauSharp.Cards.Enums;
+using MauMauSharp.TestUtilities.Data.TurnContexts;
 using MauMauSharp.TestUtilities.Mocks.Players;
 using MauMauSharp.TestUtilities.Parsers.Fluent;
 using MauMauSharp.TurnContexts;
@@ -43,6 +44,18 @@ namespace MauMauSharp.Tests.TurnContexts
                 player.Object);
 
             Assert.That(turn, Is.TypeOf<Seven>());
+        }
+
+        [TestCaseSource(typeof(RegularData), nameof(RegularData.AllRegularCards))]
+        public void FromInitialTopPlayedCard_With_Regular_Card_Returns_Regular_Turn(
+            MauMauSharp.Cards.Card card)
+        {
+            var player = PlayerMocks.Arbitrary();
+            var turn = TurnContext.FromInitialTopPlayedCard(
+                card,
+                player.Object);
+
+            Assert.That(turn, Is.TypeOf<Regular>());
         }
     }
 }
