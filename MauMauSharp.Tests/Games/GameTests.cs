@@ -165,5 +165,25 @@ namespace MauMauSharp.Tests.Games
             playerB.VerifyCardTakenOnce("As");
             playerB.VerifyCardTakenOnce("Qh");
         }
+
+        [Test]
+        public void Player_A_Plays_An_Ace_And_Player_B_Has_To_Pass()
+        {
+            var playerA = PlayerMocks.PlayingCard("Ac");
+            var playerB = PlayerMocks.Passing();
+            var game = Game.FromMocks(
+                BoardMocks.WithTopPlayedCardAndSupply(
+                    "Qc",
+                    Deck.TopDown(
+                        "As")),
+                new[] { playerA, playerB });
+
+            game.NextTurn();
+            game.NextTurn();
+
+            playerB.Verify(
+                p => p.TakeCard(It.IsAny<MauMauSharp.Cards.Card>()),
+                Times.Never);
+        }
     }
 }
