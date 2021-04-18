@@ -3,7 +3,6 @@ using MauMauSharp.TestUtilities.Extensions;
 using MauMauSharp.TestUtilities.Mocks.Boards;
 using MauMauSharp.TestUtilities.Mocks.Players;
 using MauMauSharp.TestUtilities.Parsers.Fluent;
-using Moq;
 using NUnit.Framework;
 
 namespace MauMauSharp.Tests.Players.Extensions
