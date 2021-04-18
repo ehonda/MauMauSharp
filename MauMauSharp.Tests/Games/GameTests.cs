@@ -127,14 +127,14 @@ namespace MauMauSharp.Tests.Games
                 p => p.PassOrPlayCard(
                     It.Is<GameState>(gameState
                         => gameState.PlayableCards.SequenceEqual(
-                            RegularData.ExpectedPlayableCards(Card.From("Qc")), null))),
+                            RegularData.ExpectedPlayableCards("Qc"), null))),
                 Times.Once);
         }
 
         [Test]
         public void Playing_A_Non_Playable_Card_Throws()
         {
-            var playerA = PlayerMocks.PlayingCard(Card.From("8s"));
+            var playerA = PlayerMocks.PlayingCard("8s");
             var game = Game.FromMocks(
                 BoardMocks.WithTopPlayedCardAndSupply(
                     "Qc",
@@ -150,7 +150,7 @@ namespace MauMauSharp.Tests.Games
         [Test]
         public void Player_A_Plays_Seven_And_Player_B_Has_To_Draw_Two_Cards()
         {
-            var playerA = PlayerMocks.PlayingCard(Card.From("7c"));
+            var playerA = PlayerMocks.PlayingCard("7c");
             var playerB = PlayerMocks.Passing();
             var game = Game.FromMocks(
                 BoardMocks.WithTopPlayedCardAndSupply(
