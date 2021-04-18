@@ -1,4 +1,5 @@
 ﻿using MauMauSharp.Players.Extensions;
+using MauMauSharp.TestUtilities.Extensions;
 using MauMauSharp.TestUtilities.Mocks.Boards;
 using MauMauSharp.TestUtilities.Mocks.Players;
 using MauMauSharp.TestUtilities.Parsers.Fluent;
@@ -23,17 +24,9 @@ namespace MauMauSharp.Tests.Players.Extensions
 
             player.Object.TakeNCardsFrom(board.Object, 3);
 
-            player.Verify(
-                p => p.TakeCard(Card.From("As")),
-                Times.Once);
-
-            player.Verify(
-                p => p.TakeCard(Card.From("Ad")),
-                Times.Once);
-
-            player.Verify(
-                p => p.TakeCard(Card.From("Ah")),
-                Times.Once);
+            player.VerifyCardTakenOnce("As");
+            player.VerifyCardTakenOnce("Ad");
+            player.VerifyCardTakenOnce("Ah");
         }
     }
 }
