@@ -31,7 +31,10 @@ namespace MauMauSharp.Games
 
             // TODO: If TopPlayedCard is a Jack, the starting player gets to decide the suit
             // TODO: Handle Seven / Ace starts!
-            _turnContext = new Regular(_board.TopPlayedCard());
+            _turnContext = TurnContext.FromInitialTopPlayedCard(
+                _board.TopPlayedCard(),
+                // TODO: Use active players iterator here?
+                _players.First());
         }
 
         // TODO: Use some kind of Log-Creation mechanism:

@@ -210,5 +210,26 @@ namespace MauMauSharp.Tests.Games
 
             Assert.That(board.Object.TopPlayedCard(), Is.EqualTo(Card.From("8h")));
         }
+
+        [Test]
+        public void Player_A_Gets_To_Name_Suit_And_Play_A_Card_On_An_Initial_Jack_On_The_Board()
+        {
+            var playerA = PlayerMocks
+                .PlayingCard("8h")
+                .ShapeShiftingJackInto(Suit.Hearts);
+
+            var board = BoardMocks.WithTopPlayedCardAndSupply(
+                "Jc",
+                Deck.Empty());
+
+            var game = Game.FromMocks(
+                board,
+                new[] { playerA });
+
+            game.NextTurn();
+
+            playerA.Verify(p => p.NameSuitToShapeShiftJackInto(), Times.Once);
+            Assert.That(board.Object.TopPlayedCard(), Is.EqualTo(Card.From("8h")));
+        }
     }
 }
