@@ -5,6 +5,7 @@ using MauMauSharp.Players.Extensions;
 using MauMauSharp.TurnContexts;
 using System;
 using System.Collections.Generic;
+using System.Collections.Immutable;
 using System.Linq;
 
 namespace MauMauSharp.Games
@@ -12,9 +13,6 @@ namespace MauMauSharp.Games
     public class Game
     {
         private readonly IBoard _board;
-        // TODO: This should be immutable, we don't want to remove players since we iterate over them
-        // TODO: Do we really need this, or is the enumerator enough?
-        private readonly List<IPlayer> _players;
         private readonly IEnumerator<IPlayer> _activePlayer;
         private ITurnContext _turnContext;
 
@@ -26,15 +24,12 @@ namespace MauMauSharp.Games
         public Game(IBoard board, IEnumerable<IPlayer> players)
         {
             _board = board;
-            _players = players.ToList();
-            _activePlayer = _players.Cycle().GetEnumerator();
+            var playersArray = players.ToImmutableArray();
+            _activePlayer = playersArray.Cycle().GetEnumerator();
 
-            // TODO: If TopPlayedCard is a Jack, the starting player gets to decide the suit
-            // TODO: Handle Seven / Ace starts!
             _turnContext = TurnContext.FromInitialTopPlayedCard(
                 _board.TopPlayedCard(),
-                // TODO: Use active players iterator here?
-                _players.First());
+                playersArray.First());
         }
 
         // TODO: Use some kind of Log-Creation mechanism:
