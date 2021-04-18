@@ -7,6 +7,7 @@ using MauMauSharp.TestUtilities.Parsers.Fluent;
 using Moq;
 using NUnit.Framework;
 using System.Linq;
+using MauMauSharp.TestUtilities.Extensions;
 using Game = MauMauSharp.TestUtilities.Mocks.Fluent.Game;
 
 namespace MauMauSharp.Tests.Games
@@ -60,9 +61,7 @@ namespace MauMauSharp.Tests.Games
             var game = Game.FromMocks(board, new[] { player });
             game.NextTurn();
 
-            player.Verify(
-                p => p.TakeCard(Card.From("As")),
-                Times.Once);
+            player.VerifyCardTakenOnce("As");
         }
 
         [Test]
@@ -81,13 +80,8 @@ namespace MauMauSharp.Tests.Games
             game.NextTurn();
             game.NextTurn();
 
-            playerA.Verify(
-                p => p.TakeCard(Card.From("As")),
-                Times.Once);
-
-            playerB.Verify(
-                p => p.TakeCard(Card.From("Qh")),
-                Times.Once);
+            playerA.VerifyCardTakenOnce("As");
+            playerB.VerifyCardTakenOnce("Qh");
         }
 
         [Test]
@@ -108,17 +102,9 @@ namespace MauMauSharp.Tests.Games
             game.NextTurn();
             game.NextTurn();
 
-            playerA.Verify(
-                p => p.TakeCard(Card.From("As")),
-                Times.Once);
-
-            playerB.Verify(
-                p => p.TakeCard(Card.From("Qh")),
-                Times.Once);
-
-            playerA.Verify(
-                p => p.TakeCard(Card.From("7d")),
-                Times.Once);
+            playerA.VerifyCardTakenOnce("As");
+            playerB.VerifyCardTakenOnce("Qh");
+            playerA.VerifyCardTakenOnce("7d");
         }
 
         [Test]
@@ -176,13 +162,8 @@ namespace MauMauSharp.Tests.Games
             game.NextTurn();
             game.NextTurn();
 
-            playerB.Verify(
-                p => p.TakeCard(Card.From("As")),
-                Times.Once);
-
-            playerB.Verify(
-                p => p.TakeCard(Card.From("Qh")),
-                Times.Once);
+            playerB.VerifyCardTakenOnce("As");
+            playerB.VerifyCardTakenOnce("Qh");
         }
     }
 }
