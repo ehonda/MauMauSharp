@@ -159,5 +159,30 @@ namespace MauMauSharp.Tests.Games
                 Throws.TypeOf<InvalidOperationException>()
                     .And.Message.Contains("not playable").IgnoreCase);
         }
+
+        [Test]
+        public void Player_A_Plays_Seven_And_Player_B_Has_To_Draw_Two_Cards()
+        {
+            var playerA = PlayerMocks.PlayingCard(Card.From("7c"));
+            var playerB = PlayerMocks.Passing();
+            var game = Game.FromMocks(
+                BoardMocks.WithTopPlayedCardAndSupply(
+                    "Qc",
+                    Deck.TopDown(
+                        "As",
+                        "Qh")),
+                new[] { playerA, playerB });
+
+            game.NextTurn();
+            game.NextTurn();
+
+            playerB.Verify(
+                p => p.TakeCard(Card.From("As")),
+                Times.Once);
+
+            playerB.Verify(
+                p => p.TakeCard(Card.From("Qh")),
+                Times.Once);
+        }
     }
 }
