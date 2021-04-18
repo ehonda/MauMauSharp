@@ -1,10 +1,12 @@
-﻿using MauMauSharp.Cards;
+﻿using JetBrains.Annotations;
+using MauMauSharp.Cards;
 using MauMauSharp.Cards.Enums;
 using MauMauSharp.TurnContexts;
 using System.Collections.Generic;
 
 namespace MauMauSharp.TestUtilities.Data.TurnContexts
 {
+    [PublicAPI]
     public static class RegularData
     {
         private static Rank SomeUnknownRank { get; } = (Rank)55555;
