@@ -231,5 +231,48 @@ namespace MauMauSharp.Tests.Games
             playerA.Verify(p => p.NameSuitToShapeShiftJackInto(), Times.Once);
             Assert.That(board.Object.TopPlayedCard(), Is.EqualTo(Card.From("8h")));
         }
+
+        [Test]
+        public void Player_A_Has_To_Pass_On_Initial_Ace_And_Player_B_Plays_A_Card()
+        {
+            var playerA = PlayerMocks.Passing();
+            var playerB = PlayerMocks.PlayingCard("8c");
+
+            var board = BoardMocks.WithTopPlayedCardAndSupply(
+                "Ac",
+                Deck.Empty());
+
+            var game = Game.FromMocks(
+                board,
+                new[] { playerA, playerB });
+
+            game.NextTurn();
+            game.NextTurn();
+            
+            playerA.Verify(p => p.TakeCard(It.IsAny<MauMauSharp.Cards.Card>()), Times.Never);
+            Assert.That(board.Object.TopPlayedCard(), Is.EqualTo(Card.From("8c")));
+        }
+
+        [Test]
+        public void Player_A_Has_To_Draw_Two_Cards_On_Initial_Seven()
+        {
+            var playerA = PlayerMocks.Passing();
+
+            var board = BoardMocks.WithTopPlayedCardAndSupply(
+                "7c",
+                Deck.TopDown(
+                    "As",
+                    "Ad"));
+
+            var game = Game.FromMocks(
+                board,
+                new[] { playerA });
+
+            game.NextTurn();
+
+            playerA.VerifyCardTakenOnce("As");
+            playerA.VerifyCardTakenOnce("Ad");
+            Assert.That(board.Object.TopPlayedCard(), Is.EqualTo(Card.From("7c")));
+        }
     }
 }
