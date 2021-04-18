@@ -1,5 +1,4 @@
-﻿using System.Collections.Immutable;
-using System.Linq;
+﻿using System;
 using MauMauSharp.Games;
 using MauMauSharp.TestUtilities.Data.TurnContexts;
 using MauMauSharp.TestUtilities.Mocks.Boards;
@@ -7,6 +6,7 @@ using MauMauSharp.TestUtilities.Mocks.Players;
 using MauMauSharp.TestUtilities.Parsers.Fluent;
 using Moq;
 using NUnit.Framework;
+using System.Linq;
 using Game = MauMauSharp.TestUtilities.Mocks.Fluent.Game;
 
 namespace MauMauSharp.Tests.Games
@@ -25,7 +25,7 @@ namespace MauMauSharp.Tests.Games
             game.NextTurn();
 
             player.Verify(
-                p => p.PassOrPlayCard(It.IsAny<MauMauSharp.Games.GameState>()),
+                p => p.PassOrPlayCard(It.IsAny<GameState>()),
                 Times.Once);
         }
 
@@ -142,6 +142,22 @@ namespace MauMauSharp.Tests.Games
                         => gameState.PlayableCards.SequenceEqual(
                             RegularData.ExpectedPlayableCards(Card.From("Qc")), null))),
                 Times.Once);
+        }
+
+        [Test]
+        public void Playing_A_Non_Playable_Card_Throws()
+        {
+            var playerA = PlayerMocks.PlayingCard(Card.From("8s"));
+            var game = Game.FromMocks(
+                BoardMocks.WithTopPlayedCardAndSupply(
+                    "Qc",
+                    Deck.Empty()),
+                new[] { playerA });
+
+            Assert.That(
+                () => game.NextTurn(),
+                Throws.TypeOf<InvalidOperationException>()
+                    .And.Message.Contains("not playable").IgnoreCase);
         }
     }
 }

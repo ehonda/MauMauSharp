@@ -37,7 +37,6 @@ namespace MauMauSharp.Games
 
             var card = _activePlayer.Current.PassOrPlayCard(GameState);
 
-            // TODO: Unit test that this throws
             if (card is not null && GameState.PlayableCards.Contains(card) is false)
                 throw new InvalidOperationException($"Illegal move. Card {card} was not playable.");
 
