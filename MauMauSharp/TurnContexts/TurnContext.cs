@@ -12,6 +12,10 @@ namespace MauMauSharp.TurnContexts
             {
                 { Rank: Rank.Jack } => new Regular(activePlayer.ShapeShiftJack()),
 
+                { Rank: Rank.Ace } => new Ace(card),
+
+                { Rank: Rank.Seven } => new Seven(card),
+
                 _ => new Regular(card)
             };
     }

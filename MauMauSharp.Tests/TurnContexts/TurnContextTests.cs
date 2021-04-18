@@ -22,5 +22,27 @@ namespace MauMauSharp.Tests.TurnContexts
             Assert.That(turn, Is.TypeOf<Regular>());
             player.Verify(p => p.NameSuitToShapeShiftJackInto(), Times.Once);
         }
+
+        [Test]
+        public void FromInitialTopPlayedCard_With_Ace_Returns_Ace_Turn()
+        {
+            var player = PlayerMocks.Arbitrary();
+            var turn = TurnContext.FromInitialTopPlayedCard(
+                Card.From("Ac"),
+                player.Object);
+
+            Assert.That(turn, Is.TypeOf<Ace>());
+        }
+
+        [Test]
+        public void FromInitialTopPlayedCard_With_Seven_Returns_Seven_Turn()
+        {
+            var player = PlayerMocks.Arbitrary();
+            var turn = TurnContext.FromInitialTopPlayedCard(
+                Card.From("7c"),
+                player.Object);
+
+            Assert.That(turn, Is.TypeOf<Seven>());
+        }
     }
 }
