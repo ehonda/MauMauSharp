@@ -7,6 +7,7 @@ using MauMauSharp.TestUtilities.Parsers.Fluent;
 using Moq;
 using NUnit.Framework;
 using System.Linq;
+using MauMauSharp.Cards.Enums;
 using MauMauSharp.TestUtilities.Extensions;
 using Game = MauMauSharp.TestUtilities.Mocks.Fluent.Game;
 
@@ -184,6 +185,30 @@ namespace MauMauSharp.Tests.Games
             playerB.Verify(
                 p => p.TakeCard(It.IsAny<MauMauSharp.Cards.Card>()),
                 Times.Never);
+        }
+
+        [Test]
+        public void Player_A_Plays_Jack_And_Player_B_Plays_The_Named_Suit()
+        {
+            var playerA = PlayerMocks
+                .PlayingCard("Jd")
+                .ShapeShiftingJackInto(Suit.Hearts);
+
+            var playerB = PlayerMocks.PlayingCard("8h");
+
+            var board = BoardMocks.WithTopPlayedCardAndSupply(
+                "Qc",
+                Deck.TopDown(
+                    "As"));
+
+            var game = Game.FromMocks(
+                board,
+                new[] { playerA, playerB });
+
+            game.NextTurn();
+            game.NextTurn();
+
+            Assert.That(board.Object.TopPlayedCard(), Is.EqualTo(Card.From("8h")));
         }
     }
 }

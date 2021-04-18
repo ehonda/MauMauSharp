@@ -3,6 +3,7 @@ using MauMauSharp.Cards;
 using MauMauSharp.Cards.Enums;
 using MauMauSharp.Games;
 using MauMauSharp.Players;
+using MauMauSharp.TestUtilities.Extensions;
 using Moq;
 
 namespace MauMauSharp.TestUtilities.Mocks.Players
@@ -28,12 +29,6 @@ namespace MauMauSharp.TestUtilities.Mocks.Players
         public static Mock<IPlayer> Arbitrary() => new();
 
         public static Mock<IPlayer> ShapeShiftingJackInto(Suit suit)
-        {
-            var mock = new Mock<IPlayer>();
-            mock
-                .Setup(player => player.NameSuitToShapeShiftJackInto())
-                .Returns(suit);
-            return mock;
-        }
+            => new Mock<IPlayer>().ShapeShiftingJackInto(suit);
     }
 }
