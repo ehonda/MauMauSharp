@@ -1,14 +1,14 @@
-﻿using System;
+﻿using MauMauSharp.Cards.Enums;
 using MauMauSharp.Games;
 using MauMauSharp.TestUtilities.Data.TurnContexts;
+using MauMauSharp.TestUtilities.Extensions;
 using MauMauSharp.TestUtilities.Mocks.Boards;
 using MauMauSharp.TestUtilities.Mocks.Players;
 using MauMauSharp.TestUtilities.Parsers.Fluent;
 using Moq;
 using NUnit.Framework;
+using System;
 using System.Linq;
-using MauMauSharp.Cards.Enums;
-using MauMauSharp.TestUtilities.Extensions;
 using Game = MauMauSharp.TestUtilities.Mocks.Fluent.Game;
 
 namespace MauMauSharp.Tests.Games

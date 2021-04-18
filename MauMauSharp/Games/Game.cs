@@ -34,6 +34,7 @@ namespace MauMauSharp.Games
 
         public void NextTurn()
         {
+            // TODO: Skip players with hand size == 0
             _activePlayer.MoveNext();
 
             var card = _activePlayer.Current.PassOrPlayCard(GameState);
@@ -47,6 +48,8 @@ namespace MauMauSharp.Games
                 _activePlayer.Current.TakeNCardsFrom(_board, _turnContext.CardsToDrawOnPass);
 
             _turnContext = _turnContext.NextTurnContext(card, _activePlayer.Current);
+
+            // TODO: Check if only one player with hand size > 0 is left
         }
     }
 }
