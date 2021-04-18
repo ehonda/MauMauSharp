@@ -5,6 +5,7 @@ using MauMauSharp.TurnContexts;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using MauMauSharp.Players.Extensions;
 
 namespace MauMauSharp.Games
 {
@@ -41,18 +42,9 @@ namespace MauMauSharp.Games
                 throw new InvalidOperationException($"Illegal move. Card {card} was not playable.");
 
             if (card is not null)
-            {
                 _board.PlayCard(card);
-            }
             else
-            {
-                // TODO: Unit test that appropriate number are taken
-                // TODO: Method "Take N"
-                for (int i = 0; i < _turnContext.CardsToDrawOnPass; i++)
-                {
-                    _activePlayer.Current.TakeCard(_board.DrawCardFromSupply());
-                }
-            }
+                _activePlayer.Current.TakeNCardsFrom(_board, _turnContext.CardsToDrawOnPass);
 
             // TODO: Test for turn context
             _turnContext = _turnContext.NextTurnContext(card, _activePlayer.Current);
