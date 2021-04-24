@@ -13,5 +13,8 @@ namespace MauMauSharp.TestUtilities.Parsers.Fluent
                 .Select(passOrPlay => string.IsNullOrEmpty(passOrPlay)
                     ? null
                     : Card.From(passOrPlay));
+
+        public static IEnumerable<MauMauSharp.Cards.Card?> None()
+            => Enumerable.Empty<MauMauSharp.Cards.Card>();
     }
 }
