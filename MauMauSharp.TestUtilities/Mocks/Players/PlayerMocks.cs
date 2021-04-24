@@ -30,6 +30,7 @@ namespace MauMauSharp.TestUtilities.Mocks.Players
                 .Setup(player => player.TakeCard(It.IsAny<Card>()))
                 .Callback<Card>(card => handList.Add(card));
             
+            // TODO: Is the warning about never disposing enumerator a false positive?
             var playSequenceEnumerator = playSequence.GetEnumerator();
             mock
                 .Setup(player => player.PassOrPlayCard(It.IsAny<GameState>()))
