@@ -13,6 +13,7 @@ namespace MauMauSharp.Games
     public class Game
     {
         private readonly IBoard _board;
+        // TODO: We might want to refactor this into 'Func<IPlayer> _nextActivePlayer'
         private readonly IEnumerator<IPlayer> _activePlayer;
         private ITurnContext _turnContext;
 
@@ -38,13 +39,9 @@ namespace MauMauSharp.Games
         //       -> Maybe better: Log all revealed and retrieve view from player's perspective
         public void NextTurn()
         {
-            _activePlayer.MoveNext();
-            while (_activePlayer.Current.Hand.Any() is false)
-            {
-                _activePlayer.MoveNext();
-            }
+            var activePlayer = GetNextActivePlayer();
 
-            var card = _activePlayer.Current.PassOrPlayCard(GameState);
+            var card = activePlayer.PassOrPlayCard(GameState);
 
             if (card is not null && GameState.PlayableCards.Contains(card) is false)
                 throw new InvalidOperationException($"Illegal move. Card {card} was not playable.");
@@ -52,9 +49,19 @@ namespace MauMauSharp.Games
             if (card is not null)
                 _board.PlayCard(card);
             else
-                _activePlayer.Current.TakeNCardsFrom(_board, _turnContext.CardsToDrawOnPass);
+                activePlayer.TakeNCardsFrom(_board, _turnContext.CardsToDrawOnPass);
 
-            _turnContext = _turnContext.NextTurnContext(card, _activePlayer.Current);
+            _turnContext = _turnContext.NextTurnContext(card, activePlayer);
+        }
+
+        private IPlayer GetNextActivePlayer()
+        {
+            _activePlayer.MoveNext();
+            while (_activePlayer.Current.Hand.Any() is false)
+            {
+                _activePlayer.MoveNext();
+            }
+            return _activePlayer.Current;
         }
     }
 }
