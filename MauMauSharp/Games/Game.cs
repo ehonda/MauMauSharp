@@ -13,6 +13,7 @@ namespace MauMauSharp.Games
     public class Game
     {
         private readonly IBoard _board;
+        private readonly ImmutableArray<IPlayer> _players;
         private readonly IEnumerator<IPlayer> _activePlayer;
         private ITurnContext _turnContext;
 
@@ -24,12 +25,12 @@ namespace MauMauSharp.Games
         public Game(IBoard board, IEnumerable<IPlayer> players)
         {
             _board = board;
-            var playersArray = players.ToImmutableArray();
-            _activePlayer = playersArray.Cycle().GetEnumerator();
+            _players = players.ToImmutableArray();
+            _activePlayer = _players.Cycle().GetEnumerator();
 
             _turnContext = TurnContext.FromInitialTopPlayedCard(
                 _board.TopPlayedCard(),
-                playersArray.First());
+                _players.First());
         }
 
         // TODO: Use some kind of Log-Creation mechanism:
@@ -39,8 +40,11 @@ namespace MauMauSharp.Games
         //       -> Maybe better: Log all revealed and retrieve view from player's perspective
         public void NextTurn()
         {
-            // TODO: Skip players with hand size == 0
             _activePlayer.MoveNext();
+            while (_activePlayer.Current.Hand.Any() is false)
+            {
+                _activePlayer.MoveNext();
+            }
 
             var card = _activePlayer.Current.PassOrPlayCard(GameState);
 

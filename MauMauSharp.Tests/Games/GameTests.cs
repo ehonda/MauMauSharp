@@ -274,5 +274,47 @@ namespace MauMauSharp.Tests.Games
             playerA.VerifyCardTakenOnce("Ad");
             Assert.That(board.Object.TopPlayedCard(), Is.EqualTo(Card.From("7c")));
         }
+
+        [Test]
+        public void A_Player_With_Hand_Size_Zero_Is_Skipped_On_Subsequent_Turns()
+        {
+            var playerA = PlayerMocks.WithInitialHandAndPlaySequence(
+                Hand.From("8c"),
+                PlaySequence.From("", ""));
+
+            var playerB = PlayerMocks.WithInitialHandAndPlaySequence(
+                Hand.From("9s"),
+                PlaySequence.From("9s"));
+
+            var playerC = PlayerMocks.WithInitialHandAndPlaySequence(
+                Hand.From("8d"),
+                PlaySequence.From("", ""));
+
+            var board = BoardMocks.WithTopPlayedCardAndSupply(
+                "Ks",
+                Deck.TopDown(
+                    "Tc",
+                    "Td",
+                    "Qc",
+                    "Qd"));
+
+            var game = Game.FromMocks(
+                board,
+                new[] { playerA, playerB, playerC });
+
+            game.NextTurn();    // A
+            game.NextTurn();    // B
+            game.NextTurn();    // C
+            game.NextTurn();    // A
+            game.NextTurn();    // C
+
+            playerA.VerifyCardTakenOnce("Tc");
+            playerA.VerifyCardTakenOnce("Qc");
+
+            playerB.VerifyPlayedOnTopCardOnce("Ks");
+
+            playerC.VerifyCardTakenOnce("Td");
+            playerC.VerifyCardTakenOnce("Qd");
+        }
     }
 }
