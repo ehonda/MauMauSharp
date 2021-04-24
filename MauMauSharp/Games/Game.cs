@@ -13,7 +13,6 @@ namespace MauMauSharp.Games
     public class Game
     {
         private readonly IBoard _board;
-        private readonly ImmutableArray<IPlayer> _players;
         private readonly IEnumerator<IPlayer> _activePlayer;
         private ITurnContext _turnContext;
 
@@ -21,16 +20,15 @@ namespace MauMauSharp.Games
         //          - GameStateRenderer that displays info from one player's perspective
         public GameState GameState => new(_board.BoardState, _turnContext.PlayableCards);
 
-        // TODO: Creation from static function, where players are dealt hands etc.
         public Game(IBoard board, IEnumerable<IPlayer> players)
         {
             _board = board;
-            _players = players.ToImmutableArray();
-            _activePlayer = _players.Cycle().GetEnumerator();
+            var playersArray = players.ToImmutableArray();
+            _activePlayer = playersArray.Cycle().GetEnumerator();
 
             _turnContext = TurnContext.FromInitialTopPlayedCard(
                 _board.TopPlayedCard(),
-                _players.First());
+                playersArray.First());
         }
 
         // TODO: Use some kind of Log-Creation mechanism:
@@ -57,8 +55,6 @@ namespace MauMauSharp.Games
                 _activePlayer.Current.TakeNCardsFrom(_board, _turnContext.CardsToDrawOnPass);
 
             _turnContext = _turnContext.NextTurnContext(card, _activePlayer.Current);
-
-            // TODO: Check if only one player with hand size > 0 is left
         }
     }
 }
