@@ -10,7 +10,7 @@ namespace MauMauSharp.TestUtilities.Parsers.Fluent
         public static IEnumerable<MauMauSharp.Cards.Card?> From(
             params string?[] passesOrPlays)
             => passesOrPlays
-                .Select(passOrPlay => passOrPlay is null
+                .Select(passOrPlay => string.IsNullOrEmpty(passOrPlay)
                     ? null
                     : Card.From(passOrPlay));
     }
