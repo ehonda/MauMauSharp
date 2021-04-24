@@ -45,6 +45,9 @@ namespace MauMauSharp.TestUtilities.Mocks.Players
                         throw new InvalidOperationException(
                             $"Card in play sequence is not in hand: {cardToPlay}");
 
+                    if (cardToPlay is not null)
+                        handList.Remove(cardToPlay);
+
                     return cardToPlay;
                 });
 
@@ -53,7 +56,7 @@ namespace MauMauSharp.TestUtilities.Mocks.Players
 
         public static Mock<IPlayer> PlayingCard(Card card)
         {
-            var mock = new Mock<IPlayer>();
+            var mock = WithArbitraryNonEmptyHand();
             mock
                 .Setup(player => player.PassOrPlayCard(It.IsAny<GameState>()))
                 .Returns(card);
@@ -66,9 +69,18 @@ namespace MauMauSharp.TestUtilities.Mocks.Players
         public static Mock<IPlayer> Passing()
             => PlayingCard((Card)null!);
 
-        public static Mock<IPlayer> Arbitrary() => new();
+        public static Mock<IPlayer> Arbitrary() => WithArbitraryNonEmptyHand();
 
         public static Mock<IPlayer> ShapeShiftingJackInto(Suit suit)
-            => new Mock<IPlayer>().ShapeShiftingJackInto(suit);
+            => WithArbitraryNonEmptyHand().ShapeShiftingJackInto(suit);
+
+        public static Mock<IPlayer> WithArbitraryNonEmptyHand()
+        {
+            var mock = new Mock<IPlayer>();
+            mock
+                .Setup(player => player.Hand)
+                .Returns(ImmutableArray.Create(Parsers.Fluent.Card.From("8s")));
+            return mock;
+        }
     }
 }
