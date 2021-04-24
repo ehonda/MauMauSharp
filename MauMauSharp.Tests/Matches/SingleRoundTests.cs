@@ -34,5 +34,36 @@ namespace MauMauSharp.Tests.Matches
             playerB.VerifyCardTakenOnce("Ad");
             playerB.VerifyCardTakenOnce("Ah");
         }
+
+        [Test]
+        public void Play_Returns_Players_In_The_Order_They_Finished_Playing_In()
+        {
+            var playerA = PlayerMocks.WithInitialHandAndPlaySequence(
+                Hand.Empty(), PlaySequence.From("", "As", "Ad"));
+            var playerB = PlayerMocks.WithInitialHandAndPlaySequence(
+                Hand.Empty(), PlaySequence.From("8s"));
+            var playerC = PlayerMocks.WithInitialHandAndPlaySequence(
+                Hand.Empty(), PlaySequence.From("", ""));
+
+            var board = BoardMocks
+                .WithTopPlayedCardAndSupply(
+                    "Ts",
+                    Deck.TopDown(
+                        "Ad",
+                        "8s",
+                        "9c",
+                        "As",
+                        "Tc"));
+
+            var match = new SingleRound(
+                board.Object,
+                new[] { (playerA.Object, 1), (playerB.Object, 1), (playerC.Object, 1) });
+
+            var players = match.Play();
+            Assert.That(players, Is.EqualTo(new []
+            {
+                playerB.Object, playerA.Object, playerC.Object
+            }));
+        }
     }
 }
