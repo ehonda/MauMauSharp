@@ -36,7 +36,9 @@ namespace MauMauSharp.TestUtilities.Mocks.Players
                 .Setup(player => player.PassOrPlayCard(It.IsAny<GameState>()))
                 .Returns(() =>
                 {
-                    playSequenceEnumerator.MoveNext();
+                    if (playSequenceEnumerator.MoveNext() is false)
+                        throw new InvalidOperationException("Play sequence was exhausted.");
+
                     var cardToPlay = playSequenceEnumerator.Current;
 
                     if (cardToPlay is not null && handList.Contains(cardToPlay) is false)
